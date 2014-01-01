@@ -1,13 +1,17 @@
 package org.adarrivi.physics;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.adarrivi.physics.adapter.PhysicsAdapter;
+import org.adarrivi.physics.adapter.impl.Jbox2dPhysicsAdapter;
+import org.adarrivi.physics.model.element.ElementFactory;
+import org.adarrivi.physics.model.element.Position;
+import org.adarrivi.physics.model.element.SandBox;
 import org.adarrivi.physics.view.PhysicsViewFrame;
-import org.jbox2d.common.Vec2;
 
 public class SimWithJBox2d {
 
-    private PhysicsViewFrame frame;
     private int skip;
 
     /**
@@ -15,21 +19,25 @@ public class SimWithJBox2d {
      *            the command line arguments
      */
     public static void main(String[] args) {
-        Utils.createWorld();
         new SimWithJBox2d().start();
     }
 
     public SimWithJBox2d() {
-        frame = new PhysicsViewFrame();
+
     }
 
     public void start() {
-        Utils.createFloor();
+        PhysicsAdapter physicsAdapter = new Jbox2dPhysicsAdapter();
+        PhysicsViewFrame frame = new PhysicsViewFrame(physicsAdapter);
+        ElementFactory elementFactory = new ElementFactory(physicsAdapter);
+        SandBox sandBox = elementFactory.createEarthSandBox();
+        elementFactory.createRectangle(new Position(0f, 0f), 6f, 0.5f);
+
         while (true) {
             long nanoTimeTaken = System.nanoTime();
-            Utils.world.step(1 / 60f, 8, 3);
+            sandBox.step();
             if (skip % 50 == 0) {
-                Utils.createCircle(new Vec2(0f, 5f));
+                elementFactory.createCircle(new Position(0f + new Random().nextFloat(), 5f), 0.5f);
             }
             skip++;
             frame.repaint();
