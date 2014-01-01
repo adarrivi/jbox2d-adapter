@@ -37,7 +37,6 @@ class Jbox2dElementFactory {
         bd.type = BodyType.DYNAMIC;
         bd.position = position;
         Body body = world.createBody(bd);
-        // body.setLinearVelocity(getLinearVelocity(getRandomAngle(), 1));
         body.createFixture(fd);
         return body;
     }
@@ -45,7 +44,7 @@ class Jbox2dElementFactory {
     Body createStaticRectangle(Vec2 position, float width, float height) {
         FixtureDef fd = new FixtureDef();
         PolygonShape sd = new PolygonShape();
-        sd.setAsBox(width, height);
+        sd.setAsBox(width / 2, height / 2);
         fd.shape = sd;
         BodyDef bd = new BodyDef();
         bd.position = position;

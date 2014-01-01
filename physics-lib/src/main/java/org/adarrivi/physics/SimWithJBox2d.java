@@ -31,7 +31,7 @@ public class SimWithJBox2d {
         PhysicsViewFrame frame = new PhysicsViewFrame(physicsAdapter);
         ElementFactory elementFactory = new ElementFactory(physicsAdapter);
         SandBox sandBox = elementFactory.createEarthSandBox();
-        elementFactory.createRectangle(new Position(0f, 0f), 6f, 0.5f);
+        elementFactory.createRectangle(new Position(0f, 0f), 12f, 1f);
 
         while (true) {
             long nanoTimeTaken = System.nanoTime();
