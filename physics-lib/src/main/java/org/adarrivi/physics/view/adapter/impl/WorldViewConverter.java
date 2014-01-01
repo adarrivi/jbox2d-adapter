@@ -1,25 +1,26 @@
-package org.adarrivi.physics.view;
+package org.adarrivi.physics.view.adapter.impl;
 
 import org.adarrivi.physics.model.element.Position;
+import org.adarrivi.physics.view.ViewPosition;
 
-class WorldScreenConverter {
+public class WorldViewConverter {
 
     private int screenWidth;
     private int screenHeight;
     private int pixelsPerMeter;
 
-    WorldScreenConverter(int screenWidth, int screenHeight, int pixelsPerMeter) {
+    public WorldViewConverter(int screenWidth, int screenHeight, int pixelsPerMeter) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.pixelsPerMeter = pixelsPerMeter;
     }
 
-    ScreenPosition toScreenPosition(Position worldPosition) {
+    ViewPosition toScreenPosition(Position worldPosition) {
         double offsetX = (screenWidth / 2) / pixelsPerMeter;
         double offsetY = (screenHeight / 2) / pixelsPerMeter;
         Double drawPositionX = (worldPosition.getX() + offsetX) * pixelsPerMeter;
         Double drawPositionY = (-worldPosition.getY() + offsetY) * pixelsPerMeter;
-        return new ScreenPosition(drawPositionX.intValue(), drawPositionY.intValue());
+        return new ViewPosition(drawPositionX.intValue(), drawPositionY.intValue());
     }
 
     int toScreenValue(float worldValue) {

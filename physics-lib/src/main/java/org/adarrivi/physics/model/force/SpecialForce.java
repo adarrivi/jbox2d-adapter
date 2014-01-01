@@ -1,7 +1,7 @@
 package org.adarrivi.physics.model.force;
 
-import org.adarrivi.physics.adapter.PhysicsAdapter;
-import org.adarrivi.physics.model.element.PhysicalElement;
+import org.adarrivi.physics.model.element.Element;
+import org.adarrivi.physics.physic.adapter.PhysicsAdapter;
 
 public class SpecialForce extends Force {
 
@@ -9,7 +9,7 @@ public class SpecialForce extends Force {
         super(physicsAdapter);
     }
 
-    public <E extends PhysicalElement> void destroy(E element) {
+    public <E extends Element> void destroy(E element) {
         getPhysicsAdapter().destroy(element);
     }
 

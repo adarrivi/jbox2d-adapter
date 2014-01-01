@@ -3,9 +3,9 @@ package org.adarrivi.physics.model.element;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.adarrivi.physics.adapter.PhysicsAdapter;
+import org.adarrivi.physics.physic.adapter.PhysicsAdapter;
 
-public class Rectangle extends PhysicalElement {
+public class Rectangle extends Element {
 
     private float width;
     private float height;

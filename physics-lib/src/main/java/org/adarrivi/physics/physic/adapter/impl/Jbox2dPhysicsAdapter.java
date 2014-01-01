@@ -1,27 +1,27 @@
-package org.adarrivi.physics.adapter.impl;
+package org.adarrivi.physics.physic.adapter.impl;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.adarrivi.physics.adapter.PhysicsAdapter;
 import org.adarrivi.physics.model.element.Circle;
-import org.adarrivi.physics.model.element.PhysicalElement;
+import org.adarrivi.physics.model.element.PositionalElement;
 import org.adarrivi.physics.model.element.Position;
 import org.adarrivi.physics.model.element.Rectangle;
 import org.adarrivi.physics.model.element.SandBox;
 import org.adarrivi.physics.model.force.Force;
+import org.adarrivi.physics.physic.adapter.PhysicsAdapter;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
 public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
 
-    private Map<PhysicalElement, Body> elementHashMap = new ConcurrentHashMap<>();
+    private Map<PositionalElement, Body> elementHashMap = new ConcurrentHashMap<>();
     private Jbox2dElementFactory jbox2dElementFactory;
 
     @Override
-    public <E extends PhysicalElement> void createElement(E element, Position position) {
+    public <P extends PositionalElement> void createElement(P element, Position position) {
         Body createdBody = null;
         if (element instanceof Circle) {
             Circle circle = (Circle) element;
@@ -41,7 +41,7 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     }
 
     @Override
-    public <E extends PhysicalElement> Position getLatestPosition(E element) {
+    public <P extends PositionalElement> Position getLatestPosition(P element) {
         Body body = elementHashMap.get(element);
         return toPosition(body.getPosition());
     }
@@ -51,12 +51,12 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     }
 
     @Override
-    public <E extends PhysicalElement> void destroy(E element) {
+    public <P extends PositionalElement> void destroy(P element) {
         jbox2dElementFactory.destroyBody(elementHashMap.get(element));
     }
 
     @Override
-    public <F extends Force, E extends PhysicalElement> void applyForce(F force, E element) {
+    public <F extends Force, P extends PositionalElement> void applyForce(F force, P element) {
         // TODO Auto-generated method stub
 
     }
@@ -73,7 +73,7 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     }
 
     @Override
-    public Collection<? extends PhysicalElement> getAllElements() {
+    public Collection<? extends PositionalElement> getAllElements() {
         return new HashSet<>(elementHashMap.keySet());
     }
 

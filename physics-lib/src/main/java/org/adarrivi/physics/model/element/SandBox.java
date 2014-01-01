@@ -1,6 +1,6 @@
 package org.adarrivi.physics.model.element;
 
-import org.adarrivi.physics.adapter.PhysicsAdapter;
+import org.adarrivi.physics.physic.adapter.PhysicsAdapter;
 
 public class SandBox {
 

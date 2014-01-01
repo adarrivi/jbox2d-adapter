@@ -3,12 +3,12 @@ package org.adarrivi.physics;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import org.adarrivi.physics.adapter.PhysicsAdapter;
-import org.adarrivi.physics.adapter.impl.Jbox2dPhysicsAdapter;
 import org.adarrivi.physics.model.element.ElementFactory;
 import org.adarrivi.physics.model.element.Position;
 import org.adarrivi.physics.model.element.SandBox;
-import org.adarrivi.physics.view.PhysicsViewFrame;
+import org.adarrivi.physics.physic.adapter.PhysicsAdapter;
+import org.adarrivi.physics.physic.adapter.impl.Jbox2dPhysicsAdapter;
+import org.adarrivi.physics.view.adapter.impl.PhysicsViewFrame;
 
 public class SimWithJBox2d {
 

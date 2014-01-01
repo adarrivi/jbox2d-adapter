@@ -1,7 +1,7 @@
 package org.adarrivi.physics.model.force;
 
-import org.adarrivi.physics.adapter.PhysicsAdapter;
-import org.adarrivi.physics.model.element.PhysicalElement;
+import org.adarrivi.physics.model.element.Element;
+import org.adarrivi.physics.physic.adapter.PhysicsAdapter;
 
 public class LinearForce extends Force {
 
@@ -30,7 +30,7 @@ public class LinearForce extends Force {
         this.direction = direction;
     }
 
-    public <E extends PhysicalElement> void applyOn(E element) {
+    public <E extends Element> void applyOn(E element) {
         getPhysicsAdapter().applyForce(this, element);
     }
 

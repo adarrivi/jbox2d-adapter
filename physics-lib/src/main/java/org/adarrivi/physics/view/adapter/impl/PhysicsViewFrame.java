@@ -1,9 +1,12 @@
-package org.adarrivi.physics.view;
+package org.adarrivi.physics.view.adapter.impl;
+
+import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import org.adarrivi.physics.adapter.PhysicsAdapter;
+import org.adarrivi.physics.physic.adapter.PhysicsAdapter;
+import org.adarrivi.physics.view.adapter.ViewAdapter;
 
 public class PhysicsViewFrame extends JFrame implements Runnable {
 
@@ -27,8 +30,10 @@ public class PhysicsViewFrame extends JFrame implements Runnable {
     @Override
     public void run() {
         centerFrame();
-        WorldScreenConverter worldScreenConverter = new WorldScreenConverter(WIDTH, HEIGHT, PIXELS_PER_METER);
-        sandboxPanel = new SandboxPanel(physicsAdapter, worldScreenConverter);
+        WorldViewConverter worldViewConverter = new WorldViewConverter(WIDTH, HEIGHT, PIXELS_PER_METER);
+        ViewDecoratiorFactory viewDecoratiorFactory = new ViewDecoratiorFactory(worldViewConverter);
+        ViewAdapter<Graphics2D> viewAdapter = new SwingViewAdapter(physicsAdapter, viewDecoratiorFactory);
+        sandboxPanel = new SandboxPanel(viewAdapter, WIDTH, HEIGHT);
         add(sandboxPanel);
     }
 

@@ -1,20 +1,20 @@
 package org.adarrivi.physics.view;
 
-class ScreenPosition {
+public class ViewPosition {
 
     private int x;
     private int y;
 
-    ScreenPosition(int x, int y) {
+    public ViewPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    int getX() {
+    public int getX() {
         return x;
     }
 
-    int getY() {
+    public int getY() {
         return y;
     }
 }
