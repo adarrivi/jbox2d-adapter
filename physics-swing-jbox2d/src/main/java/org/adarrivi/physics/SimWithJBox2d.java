@@ -7,8 +7,8 @@ import org.adarrivi.physics.model.element.ElementFactory;
 import org.adarrivi.physics.model.element.Position;
 import org.adarrivi.physics.model.element.SandBox;
 import org.adarrivi.physics.physic.adapter.PhysicsAdapter;
-import org.adarrivi.physics.physic.adapter.impl.Jbox2dPhysicsAdapter;
-import org.adarrivi.physics.view.adapter.impl.PhysicsViewFrame;
+import org.adarrivi.physics.physic.adapter.jbox2d.Jbox2dPhysicsAdapter;
+import org.adarrivi.physics.view.adapter.swing.PhysicsViewFrame;
 
 public class SimWithJBox2d {
 

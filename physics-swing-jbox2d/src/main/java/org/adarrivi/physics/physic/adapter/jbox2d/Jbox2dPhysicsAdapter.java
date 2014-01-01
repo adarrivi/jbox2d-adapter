@@ -1,4 +1,4 @@
-package org.adarrivi.physics.physic.adapter.impl;
+package org.adarrivi.physics.physic.adapter.jbox2d;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.adarrivi.physics.model.element.Circle;
-import org.adarrivi.physics.model.element.PositionalElement;
 import org.adarrivi.physics.model.element.Position;
+import org.adarrivi.physics.model.element.PositionalElement;
 import org.adarrivi.physics.model.element.Rectangle;
 import org.adarrivi.physics.model.element.SandBox;
 import org.adarrivi.physics.model.force.Force;

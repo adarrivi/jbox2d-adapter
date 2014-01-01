@@ -1,4 +1,4 @@
-package org.adarrivi.physics.view.adapter.impl;
+package org.adarrivi.physics.view.adapter.swing;
 
 import org.adarrivi.physics.model.element.Circle;
 import org.adarrivi.physics.model.element.PositionalElement;

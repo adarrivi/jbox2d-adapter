@@ -1,4 +1,4 @@
-package org.adarrivi.physics.view.adapter.impl;
+package org.adarrivi.physics.view.adapter.swing;
 
 import java.awt.Color;
 import java.awt.Graphics;

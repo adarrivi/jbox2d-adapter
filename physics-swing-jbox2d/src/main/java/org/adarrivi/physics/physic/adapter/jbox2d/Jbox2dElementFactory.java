@@ -1,4 +1,4 @@
-package org.adarrivi.physics.physic.adapter.impl;
+package org.adarrivi.physics.physic.adapter.jbox2d;
 
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
