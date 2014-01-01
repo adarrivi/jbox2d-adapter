@@ -14,8 +14,4 @@ public abstract class Element implements PositionalElement {
     public Position getPosition() {
         return physicsAdapter.getLatestPosition(this);
     }
-
-    public PhysicsAdapter getPhysicalAdapter() {
-        return physicsAdapter;
-    }
 }
