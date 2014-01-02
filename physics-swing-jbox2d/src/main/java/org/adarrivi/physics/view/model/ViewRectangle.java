@@ -1,4 +1,4 @@
-package org.adarrivi.physics.view.adapter.swing;
+package org.adarrivi.physics.view.model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -6,12 +6,11 @@ import java.util.List;
 
 import org.adarrivi.physics.model.element.Position;
 import org.adarrivi.physics.model.element.Rectangle;
-import org.adarrivi.physics.view.ViewPosition;
 
 class ViewRectangle extends ViewPositionalElementDecorator<Rectangle> {
 
-    ViewRectangle(Rectangle rectangle, WorldViewConverter worldViewConverter) {
-        super(rectangle, worldViewConverter);
+    ViewRectangle(Rectangle decoratedElement, int screenWidth, int screenHeight, int pixelsPerMeter) {
+        super(decoratedElement, screenWidth, screenHeight, pixelsPerMeter);
     }
 
     @Override
@@ -22,7 +21,7 @@ class ViewRectangle extends ViewPositionalElementDecorator<Rectangle> {
         int[] intX = new int[vertexCount];
         int[] intY = new int[vertexCount];
         for (int i = 0; i < vertexCount; i++) {
-            ViewPosition vertexPosition = getWorldViewConverter().toScreenPosition(vertexList.get(i));
+            ViewPosition vertexPosition = toViewPosition(vertexList.get(i));
             intX[i] = vertexPosition.getX();
             intY[i] = vertexPosition.getY();
         }

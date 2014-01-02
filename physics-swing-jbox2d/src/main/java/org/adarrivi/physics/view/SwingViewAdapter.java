@@ -1,17 +1,19 @@
-package org.adarrivi.physics.view.adapter.swing;
+package org.adarrivi.physics.view;
 
 import java.awt.Graphics2D;
 
 import org.adarrivi.physics.model.element.PositionalElement;
 import org.adarrivi.physics.physic.adapter.PhysicsAdapter;
 import org.adarrivi.physics.view.adapter.ViewAdapter;
+import org.adarrivi.physics.view.model.ViewDecoratorFactory;
+import org.adarrivi.physics.view.model.ViewPositionalElementDecorator;
 
-class SwingViewAdapter implements ViewAdapter<Graphics2D> {
+public class SwingViewAdapter implements ViewAdapter<Graphics2D> {
 
     private PhysicsAdapter physicsAdapter;
-    private ViewDecoratiorFactory viewDecoratiorFactory;
+    private ViewDecoratorFactory viewDecoratiorFactory;
 
-    SwingViewAdapter(PhysicsAdapter physicsAdapter, ViewDecoratiorFactory viewDecoratiorFactory) {
+    public SwingViewAdapter(PhysicsAdapter physicsAdapter, ViewDecoratorFactory viewDecoratiorFactory) {
         this.physicsAdapter = physicsAdapter;
         this.viewDecoratiorFactory = viewDecoratiorFactory;
     }

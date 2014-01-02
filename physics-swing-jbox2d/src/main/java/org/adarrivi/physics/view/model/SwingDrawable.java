@@ -1,4 +1,4 @@
-package org.adarrivi.physics.view.adapter.swing;
+package org.adarrivi.physics.view.model;
 
 import java.awt.Graphics2D;
 

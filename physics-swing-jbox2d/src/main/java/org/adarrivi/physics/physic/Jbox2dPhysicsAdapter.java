@@ -1,4 +1,4 @@
-package org.adarrivi.physics.physic.adapter.jbox2d;
+package org.adarrivi.physics.physic;
 
 import java.util.Collection;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package org.adarrivi.physics.view;
+package org.adarrivi.physics.view.model;
 
 public class ViewPosition {
 

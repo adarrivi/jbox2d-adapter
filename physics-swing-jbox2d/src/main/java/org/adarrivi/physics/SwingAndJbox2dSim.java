@@ -6,11 +6,11 @@ import java.util.concurrent.TimeUnit;
 import org.adarrivi.physics.model.element.ElementFactory;
 import org.adarrivi.physics.model.element.Position;
 import org.adarrivi.physics.model.element.SandBox;
+import org.adarrivi.physics.physic.Jbox2dPhysicsAdapter;
 import org.adarrivi.physics.physic.adapter.PhysicsAdapter;
-import org.adarrivi.physics.physic.adapter.jbox2d.Jbox2dPhysicsAdapter;
-import org.adarrivi.physics.view.adapter.swing.PhysicsViewFrame;
+import org.adarrivi.physics.view.panel.PhysicsViewFrame;
 
-public class SimWithJBox2d {
+public class SwingAndJbox2dSim {
 
     private int skip;
 
@@ -19,10 +19,10 @@ public class SimWithJBox2d {
      *            the command line arguments
      */
     public static void main(String[] args) {
-        new SimWithJBox2d().start();
+        new SwingAndJbox2dSim().start();
     }
 
-    public SimWithJBox2d() {
+    public SwingAndJbox2dSim() {
 
     }
 
@@ -34,6 +34,7 @@ public class SimWithJBox2d {
         elementFactory.createRectangle(new Position(0f, 0f), 12f, 1f);
 
         while (true) {
+            // TODO Create an executor for a steady fps rate
             long nanoTimeTaken = System.nanoTime();
             sandBox.step();
             if (skip % 50 == 0) {

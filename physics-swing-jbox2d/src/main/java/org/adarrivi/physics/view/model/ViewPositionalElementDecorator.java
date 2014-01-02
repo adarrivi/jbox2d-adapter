@@ -1,21 +1,28 @@
-package org.adarrivi.physics.view.adapter.swing;
+package org.adarrivi.physics.view.model;
 
 import org.adarrivi.physics.model.element.Position;
-import org.adarrivi.physics.view.ViewPosition;
+import org.adarrivi.physics.model.element.PositionalElement;
 
-public class WorldViewConverter {
+public abstract class ViewPositionalElementDecorator<P extends PositionalElement> implements SwingDrawable {
+
+    private P decoratedElement;
 
     private int screenWidth;
     private int screenHeight;
     private int pixelsPerMeter;
 
-    public WorldViewConverter(int screenWidth, int screenHeight, int pixelsPerMeter) {
+    protected ViewPositionalElementDecorator(P decoratedElement, int screenWidth, int screenHeight, int pixelsPerMeter) {
+        this.decoratedElement = decoratedElement;
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.pixelsPerMeter = pixelsPerMeter;
     }
 
-    ViewPosition toScreenPosition(Position worldPosition) {
+    protected P getDecoratedElement() {
+        return decoratedElement;
+    }
+
+    protected ViewPosition toViewPosition(Position worldPosition) {
         double offsetX = (screenWidth / 2) / pixelsPerMeter;
         double offsetY = (screenHeight / 2) / pixelsPerMeter;
         Double drawPositionX = (worldPosition.getX() + offsetX) * pixelsPerMeter;
@@ -23,17 +30,9 @@ public class WorldViewConverter {
         return new ViewPosition(drawPositionX.intValue(), drawPositionY.intValue());
     }
 
-    int toScreenValue(float worldValue) {
+    protected int toViewValue(float worldValue) {
         Float screenValue = worldValue * pixelsPerMeter;
         return screenValue.intValue();
-    }
-
-    public int getScreenWidth() {
-        return screenWidth;
-    }
-
-    public int getScreenHeight() {
-        return screenHeight;
     }
 
 }
