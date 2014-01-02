@@ -27,7 +27,7 @@ public abstract class ViewPositionalElementDecorator<P extends PositionalElement
         double offsetY = (screenHeight / 2) / pixelsPerMeter;
         Double drawPositionX = (worldPosition.getX() + offsetX) * pixelsPerMeter;
         Double drawPositionY = (-worldPosition.getY() + offsetY) * pixelsPerMeter;
-        return new ViewPosition(drawPositionX.intValue(), drawPositionY.intValue());
+        return new ViewPosition(drawPositionX.intValue(), drawPositionY.intValue(), -worldPosition.getRotation());
     }
 
     protected int toViewValue(float worldValue) {

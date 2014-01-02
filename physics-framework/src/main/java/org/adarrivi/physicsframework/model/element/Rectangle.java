@@ -10,8 +10,8 @@ public class Rectangle extends Element {
     private float width;
     private float height;
 
-    Rectangle(PhysicsAdapter physicsAdapter, float width, float height) {
-        super(physicsAdapter);
+    Rectangle(PhysicsAdapter physicsAdapter, DynamicType dynamicType, float width, float height) {
+        super(physicsAdapter, dynamicType);
         this.width = width;
         this.height = height;
     }

@@ -11,6 +11,7 @@ import org.adarrivi.physicsframework.model.element.PositionalElement;
 import org.adarrivi.physicsframework.model.element.Rectangle;
 import org.adarrivi.physicsframework.model.element.SandBox;
 import org.adarrivi.physicsframework.model.force.Force;
+import org.adarrivi.physicsframework.model.force.LinearForce;
 import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -43,11 +44,14 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     @Override
     public <P extends PositionalElement> Position getLatestPosition(P element) {
         Body body = elementHashMap.get(element);
-        return toPosition(body.getPosition());
+        return toPosition(body);
     }
 
-    private Position toPosition(Vec2 vector) {
-        return new Position(vector.x, vector.y);
+    private Position toPosition(Body body) {
+        Vec2 vector = body.getPosition();
+        Position position = new Position(vector.x, vector.y);
+        position.setRotation(body.getAngle());
+        return position;
     }
 
     @Override
@@ -57,8 +61,14 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
 
     @Override
     public <F extends Force, P extends PositionalElement> void applyForce(F force, P element) {
-        // TODO Auto-generated method stub
-
+        if (force instanceof LinearForce) {
+            LinearForce linearForce = (LinearForce) force;
+            Body body = elementHashMap.get(element);
+            Double xVector = linearForce.getMagnitud() * Math.cos(linearForce.getDirection());
+            Double yVector = linearForce.getMagnitud() * Math.sin(linearForce.getDirection());
+            Vec2 forceVector = new Vec2(xVector.floatValue(), yVector.floatValue());
+            body.applyForceToCenter(forceVector);
+        }
     }
 
     @Override

@@ -4,4 +4,6 @@ public interface PositionalElement {
 
     Position getPosition();
 
+    DynamicType getDynamicType();
+
 }

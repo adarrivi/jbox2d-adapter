@@ -15,9 +15,4 @@ public class ForceFactory {
         return linearForce;
     }
 
-    public SpecialForce createSpecialForce() {
-        SpecialForce specialForce = new SpecialForce(physicsAdapter);
-        return specialForce;
-    }
-
 }

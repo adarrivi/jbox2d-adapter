@@ -6,8 +6,8 @@ public class Circle extends Element {
 
     private float radius;
 
-    Circle(PhysicsAdapter physicsAdapter, float radius) {
-        super(physicsAdapter);
+    Circle(PhysicsAdapter physicsAdapter, DynamicType dynamicType, float radius) {
+        super(physicsAdapter, dynamicType);
         this.radius = radius;
     }
 
