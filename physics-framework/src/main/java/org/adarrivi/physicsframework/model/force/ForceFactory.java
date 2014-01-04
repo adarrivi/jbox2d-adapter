@@ -11,8 +11,7 @@ public class ForceFactory {
     }
 
     public LinearForce createLinearForce(float magnitude, float direction) {
-        LinearForce linearForce = new LinearForce(physicsAdapter, magnitude, direction);
-        return linearForce;
+        return new LinearForce(physicsAdapter, magnitude, direction);
     }
 
 }
