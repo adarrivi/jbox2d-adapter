@@ -1,7 +1,8 @@
 package org.adarrivi.physicsframework;
 
 import org.adarrivi.physicsframework.adapter.view.panel.PhysicsViewFrame;
-import org.adarrivi.physicsframework.model.element.Circle;
+import org.adarrivi.physicsframework.model.element.DynamicType;
+import org.adarrivi.physicsframework.model.element.Element;
 import org.adarrivi.physicsframework.model.element.ElementFactory;
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.SandBox;
@@ -20,6 +21,8 @@ public class StepCommand implements Runnable {
     private SandBox sandBox;
     private PhysicsViewFrame viewFrame;
 
+    private int shape;
+
     public StepCommand(ElementFactory elementFactory, ForceFactory forceFactory, SandBox sandBox, PhysicsViewFrame viewFrame) {
         this.elementFactory = elementFactory;
         this.forceFactory = forceFactory;
@@ -35,17 +38,24 @@ public class StepCommand implements Runnable {
     @Override
     public void run() {
         if (skipBallCreation % STEPS_BETWEEN_BALLS == 0) {
-            Circle circle = elementFactory.createCircle(new Position(0f, 5f), 0.5f);
-            if (pushLeft) {
-                leftPush.applyOn(circle);
+            Element element;
+            if (shape == 1) {
+                element = elementFactory.createRectangle(new Position(0f, 5f), 1f, 1f, DynamicType.DYNAMIC);
             } else {
-                rightPush.applyOn(circle);
+                shape = 0;
+                element = elementFactory.createCircle(new Position(0f, 5f), 0.5f, DynamicType.DYNAMIC);
             }
-            pushLeft ^= pushLeft;
+            if (pushLeft) {
+                leftPush.applyOn(element);
+            } else {
+                rightPush.applyOn(element);
+            }
+            pushLeft = !pushLeft;
+            shape++;
         }
+
         skipBallCreation++;
         sandBox.step();
         viewFrame.repaint();
     }
-
 }

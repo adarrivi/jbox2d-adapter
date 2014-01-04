@@ -13,7 +13,7 @@ public abstract class Element implements PositionalElement {
     }
 
     @Override
-    public Position getPosition() {
+    public Position getLatestPosition() {
         return physicsAdapter.getLatestPosition(this);
     }
 

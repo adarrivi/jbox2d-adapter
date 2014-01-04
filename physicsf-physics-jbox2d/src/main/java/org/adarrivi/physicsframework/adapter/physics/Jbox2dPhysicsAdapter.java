@@ -2,43 +2,38 @@ package org.adarrivi.physicsframework.adapter.physics;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
-import org.adarrivi.physicsframework.model.element.Circle;
+import org.adarrivi.physicsframework.adapter.physics.model.PhysicsDecoratorFactory;
+import org.adarrivi.physicsframework.adapter.physics.model.PhysicsElementDecorator;
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.PositionalElement;
-import org.adarrivi.physicsframework.model.element.Rectangle;
 import org.adarrivi.physicsframework.model.element.SandBox;
 import org.adarrivi.physicsframework.model.force.Force;
 import org.adarrivi.physicsframework.model.force.LinearForce;
 import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.World;
 
 public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
 
-    private Map<PositionalElement, Body> elementHashMap = new ConcurrentHashMap<>();
-    private Jbox2dElementFactory jbox2dElementFactory;
+    private static final int POSITION_ITERATIONS = 3;
+    private static final int VELOCITY_ITERATIONS = 8;
+    private ConcurrentHashMap<PositionalElement, Body> elementHashMap = new ConcurrentHashMap<>();
+    private PhysicsDecoratorFactory physicsDecoratorFactory;
+    private World world;
+
+    public Jbox2dPhysicsAdapter(PhysicsDecoratorFactory physicsDecoratorFactory) {
+        this.physicsDecoratorFactory = physicsDecoratorFactory;
+    }
 
     @Override
     public <P extends PositionalElement> void createElement(P element, Position position) {
-        Body createdBody = null;
-        if (element instanceof Circle) {
-            Circle circle = (Circle) element;
-            createdBody = jbox2dElementFactory.createCircle(toVec2(position), circle.getRadius());
-        }
-        if (element instanceof Rectangle) {
-            Rectangle rectangle = (Rectangle) element;
-            createdBody = jbox2dElementFactory.createStaticRectangle(toVec2(position), rectangle.getWidth(), rectangle.getHeight());
-        }
-        if (createdBody != null) {
-            elementHashMap.put(element, createdBody);
-        }
-    }
-
-    private Vec2 toVec2(Position position) {
-        return new Vec2(position.getX(), position.getY());
+        PhysicsElementDecorator<?> physicsElement = physicsDecoratorFactory.decoratePositionalElement(element);
+        Body createdBody = physicsElement.addToWorld(world, position);
+        elementHashMap.putIfAbsent(element, createdBody);
     }
 
     @Override
@@ -56,7 +51,7 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
 
     @Override
     public <P extends PositionalElement> void destroy(P element) {
-        jbox2dElementFactory.destroyBody(elementHashMap.get(element));
+        world.destroyBody(elementHashMap.get(element));
     }
 
     @Override
@@ -73,13 +68,13 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
 
     @Override
     public void createSandBox(SandBox sandBox) {
-        jbox2dElementFactory = new Jbox2dElementFactory();
-        jbox2dElementFactory.createWorld(sandBox.hasEarthGravity());
+        world = physicsDecoratorFactory.createWorld(sandBox.hasEarthGravity());
     }
 
     @Override
     public void step(SandBox sandBox) {
-        jbox2dElementFactory.stepWorld();
+        float milliseconsPerSecond = TimeUnit.SECONDS.toMillis(1);
+        world.step(sandBox.getStepSimulationMs() / milliseconsPerSecond, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
     }
 
     @Override

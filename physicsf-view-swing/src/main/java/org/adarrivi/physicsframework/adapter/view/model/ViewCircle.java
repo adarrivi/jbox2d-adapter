@@ -15,8 +15,7 @@ class ViewCircle extends ViewPositionalElementDecorator<Circle> {
 
     @Override
     public void drawYourself(Graphics2D g2d) {
-        AffineTransform oldTransform = g2d.getTransform();
-        ViewPosition viewPosition = toViewPosition(getDecoratedElement().getPosition());
+        ViewPosition viewPosition = toViewPosition(getDecoratedElement().getLatestPosition());
         AffineTransform rotator = AffineTransform.getRotateInstance(viewPosition.getRotation(), viewPosition.getX(), viewPosition.getY());
         g2d.setTransform(rotator);
         g2d.setColor(Color.BLUE);
@@ -26,8 +25,6 @@ class ViewCircle extends ViewPositionalElementDecorator<Circle> {
         g2d.fill(circle);
         g2d.setColor(Color.GRAY);
         g2d.drawLine(viewPosition.getX(), viewPosition.getY(), viewPosition.getX() + viewRadius, viewPosition.getY());
-
-        g2d.setTransform(oldTransform);
     }
 
 }

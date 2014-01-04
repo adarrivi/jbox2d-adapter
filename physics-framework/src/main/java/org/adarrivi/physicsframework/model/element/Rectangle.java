@@ -16,16 +16,7 @@ public class Rectangle extends Element {
         this.height = height;
     }
 
-    public float getWidth() {
-        return width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public List<Position> getVertexList() {
-        Position centerPosition = getPosition();
+    public List<Position> getVertexList(Position centerPosition) {
         List<Position> vertexList = new ArrayList<>();
         float halfWidth = width / 2;
         float halfHeight = height / 2;
@@ -35,4 +26,13 @@ public class Rectangle extends Element {
         vertexList.add(new Position(centerPosition.getX() - halfWidth, centerPosition.getY() - halfHeight));
         return vertexList;
     }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
 }

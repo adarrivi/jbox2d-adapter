@@ -27,6 +27,10 @@ public class Position {
         return y;
     }
 
+    public Position add(Position position) {
+        return new Position(x + position.x, y + position.y);
+    }
+
     @Override
     public String toString() {
         return "Position [x=" + x + ", y=" + y + "]";

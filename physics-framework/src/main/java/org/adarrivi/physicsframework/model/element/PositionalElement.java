@@ -2,7 +2,7 @@ package org.adarrivi.physicsframework.model.element;
 
 public interface PositionalElement {
 
-    Position getPosition();
+    Position getLatestPosition();
 
     DynamicType getDynamicType();
 

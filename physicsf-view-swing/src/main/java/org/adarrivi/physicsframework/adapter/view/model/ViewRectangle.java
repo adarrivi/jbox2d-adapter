@@ -2,6 +2,7 @@ package org.adarrivi.physicsframework.adapter.view.model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.util.List;
 
 import org.adarrivi.physicsframework.model.element.Position;
@@ -16,7 +17,11 @@ class ViewRectangle extends ViewPositionalElementDecorator<Rectangle> {
     @Override
     public void drawYourself(Graphics2D g2d) {
         g2d.setColor(Color.GREEN);
-        List<Position> vertexList = getDecoratedElement().getVertexList();
+        Position latestPosition = getDecoratedElement().getLatestPosition();
+        ViewPosition viewPosition = toViewPosition(latestPosition);
+        AffineTransform rotator = AffineTransform.getRotateInstance(viewPosition.getRotation(), viewPosition.getX(), viewPosition.getY());
+        g2d.setTransform(rotator);
+        List<Position> vertexList = getDecoratedElement().getVertexList(latestPosition);
         int vertexCount = vertexList.size();
         int[] intX = new int[vertexCount];
         int[] intY = new int[vertexCount];
@@ -27,5 +32,4 @@ class ViewRectangle extends ViewPositionalElementDecorator<Rectangle> {
         }
         g2d.fillPolygon(intX, intY, vertexCount);
     }
-
 }
