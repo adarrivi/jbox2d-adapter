@@ -1,7 +1,6 @@
 package org.adarrivi.physicsframework.adapter.view;
 
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 
 import org.adarrivi.physicsframework.adapter.view.model.ViewDecoratorFactory;
 import org.adarrivi.physicsframework.adapter.view.model.ViewPositionalElementDecorator;
@@ -23,11 +22,8 @@ public class SwingViewAdapter implements ViewAdapter<Graphics2D> {
     public void drawAll(Graphics2D g2d) {
         for (PositionalElement element : physicsAdapter.getAllElements()) {
             ViewPositionalElementDecorator<?> viewElement = viewDecoratiorFactory.decoratePositionalElement(element);
-            AffineTransform oldTransform = g2d.getTransform();
             viewElement.drawYourself(g2d);
-            g2d.setTransform(oldTransform);
         }
-
     }
 
 }

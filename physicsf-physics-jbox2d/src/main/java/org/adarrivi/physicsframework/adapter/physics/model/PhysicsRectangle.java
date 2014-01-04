@@ -26,15 +26,13 @@ public class PhysicsRectangle extends PhysicsElementDecorator<Rectangle> {
         FixtureDef fd = new FixtureDef();
         PolygonShape sd = new PolygonShape();
         sd.setAsBox(decoratedRectangle.getWidth() / 2, decoratedRectangle.getHeight() / 2);
-        // Vec2[] vertexArray =
-        // toVec2Array(decoratedRectangle.getVertexList(position));
-        // sd.set(vertexArray, vertexArray.length);
         fd.shape = sd;
         fd.density = DENSITY;
         fd.friction = FRICTION;
 
         BodyDef bd = new BodyDef();
         bd.position = toVec2(position);
+        bd.angle = position.getRotation();
         if (DynamicType.DYNAMIC.equals(decoratedRectangle.getDynamicType())) {
             bd.type = BodyType.DYNAMIC;
         }

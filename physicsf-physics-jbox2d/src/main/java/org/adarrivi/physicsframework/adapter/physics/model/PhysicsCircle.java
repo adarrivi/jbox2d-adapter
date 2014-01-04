@@ -35,6 +35,7 @@ public class PhysicsCircle extends PhysicsElementDecorator<Circle> {
             bd.type = BodyType.DYNAMIC;
         }
         bd.position = toVec2(position);
+        bd.angle = position.getRotation();
         Body body = world.createBody(bd);
         body.createFixture(fd);
         return body;

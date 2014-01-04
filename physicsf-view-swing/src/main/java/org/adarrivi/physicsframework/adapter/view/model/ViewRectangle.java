@@ -2,10 +2,9 @@ package org.adarrivi.physicsframework.adapter.view.model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.util.List;
 
-import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.Rectangle;
 
 class ViewRectangle extends ViewPositionalElementDecorator<Rectangle> {
@@ -15,21 +14,19 @@ class ViewRectangle extends ViewPositionalElementDecorator<Rectangle> {
     }
 
     @Override
-    public void drawYourself(Graphics2D g2d) {
+    protected void drawYourselfPosition(Graphics2D g2d, ViewPosition position) {
         g2d.setColor(Color.GREEN);
-        Position latestPosition = getDecoratedElement().getLatestPosition();
-        ViewPosition viewPosition = toViewPosition(latestPosition);
-        AffineTransform rotator = AffineTransform.getRotateInstance(viewPosition.getRotation(), viewPosition.getX(), viewPosition.getY());
-        g2d.setTransform(rotator);
-        List<Position> vertexList = getDecoratedElement().getVertexList(latestPosition);
-        int vertexCount = vertexList.size();
-        int[] intX = new int[vertexCount];
-        int[] intY = new int[vertexCount];
-        for (int i = 0; i < vertexCount; i++) {
-            ViewPosition vertexPosition = toViewPosition(vertexList.get(i));
-            intX[i] = vertexPosition.getX();
-            intY[i] = vertexPosition.getY();
-        }
-        g2d.fillPolygon(intX, intY, vertexCount);
+
+        int width = toViewValue(getDecoratedElement().getWidth());
+        int height = toViewValue(getDecoratedElement().getHeight());
+
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(position.getRotation(), position.getX(), position.getY());
+        transform.translate(position.getX() - width / 2, position.getY() - height / 2);
+
+        Shape rectangleShape = new java.awt.Rectangle(width, height);
+        rectangleShape = transform.createTransformedShape(rectangleShape);
+        g2d.fill(rectangleShape);
     }
+
 }

@@ -1,6 +1,7 @@
 package org.adarrivi.physicsframework;
 
-import org.adarrivi.physicsframework.adapter.view.panel.PhysicsViewFrame;
+import javax.swing.JFrame;
+
 import org.adarrivi.physicsframework.model.element.DynamicType;
 import org.adarrivi.physicsframework.model.element.Element;
 import org.adarrivi.physicsframework.model.element.ElementFactory;
@@ -19,11 +20,11 @@ public class StepCommand implements Runnable {
     private LinearForce rightPush;
     private LinearForce leftPush;
     private SandBox sandBox;
-    private PhysicsViewFrame viewFrame;
+    private JFrame viewFrame;
 
     private int shape;
 
-    public StepCommand(ElementFactory elementFactory, ForceFactory forceFactory, SandBox sandBox, PhysicsViewFrame viewFrame) {
+    public StepCommand(ElementFactory elementFactory, ForceFactory forceFactory, SandBox sandBox, JFrame viewFrame) {
         this.elementFactory = elementFactory;
         this.forceFactory = forceFactory;
         this.sandBox = sandBox;

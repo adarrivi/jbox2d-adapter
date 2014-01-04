@@ -1,41 +1,52 @@
-package org.adarrivi.physicsframework.adapter.view.panel;
+package org.adarrivi.physicsframework;
 
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 
 import org.adarrivi.physicsframework.adapter.view.SwingViewAdapter;
 import org.adarrivi.physicsframework.adapter.view.model.ViewDecoratorFactory;
+import org.adarrivi.physicsframework.adapter.view.panel.SandboxPanel;
 import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 import org.adarrivi.physicsframework.view.adapter.ViewAdapter;
 
-public class PhysicsViewFrame extends JFrame implements Runnable {
+public class DoublePanelFrame extends JFrame implements Runnable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final int PIXELS_PER_METER = 50;
+    private static final int PIXELS_PER_METER = 25;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
-    private SandboxPanel sandboxPanel;
-    private PhysicsAdapter physicsAdapter;
+    private static final int PANEL_WIDTH = 400;
+    private static final int PANEL_HEIGHT = 600;
 
-    public PhysicsViewFrame(PhysicsAdapter physicsAdapter) {
+    private PhysicsAdapter physicsAdapter;
+    private JPanel contentPane;
+
+    public DoublePanelFrame(PhysicsAdapter physicsAdapter) {
+        this.physicsAdapter = physicsAdapter;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(new GridLayout(1, 0, 0, 0));
         SwingUtilities.invokeLater(this);
-        this.physicsAdapter = physicsAdapter;
     }
 
     @Override
     public void run() {
         centerFrame();
-        ViewDecoratorFactory viewDecoratiorFactory = new ViewDecoratorFactory(WIDTH, HEIGHT, PIXELS_PER_METER);
+        ViewDecoratorFactory viewDecoratiorFactory = new ViewDecoratorFactory(PANEL_WIDTH, PANEL_HEIGHT, PIXELS_PER_METER);
         ViewAdapter<Graphics2D> viewAdapter = new SwingViewAdapter(physicsAdapter, viewDecoratiorFactory);
-        sandboxPanel = new SandboxPanel(viewAdapter, WIDTH, HEIGHT);
-        add(sandboxPanel);
+        contentPane.add(new SandboxPanel(viewAdapter, PANEL_WIDTH, PANEL_HEIGHT));
+        contentPane.add(new SandboxPanel(viewAdapter, PANEL_WIDTH, PANEL_HEIGHT));
     }
 
     private void centerFrame() {

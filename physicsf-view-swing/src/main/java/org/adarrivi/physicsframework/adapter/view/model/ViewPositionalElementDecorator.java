@@ -1,5 +1,6 @@
 package org.adarrivi.physicsframework.adapter.view.model;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,5 +46,13 @@ public abstract class ViewPositionalElementDecorator<P extends PositionalElement
         Float screenValue = worldValue * pixelsPerMeter;
         return screenValue.intValue();
     }
+
+    @Override
+    public final void drawYourself(Graphics2D g2d) {
+        Position latestPosition = getDecoratedElement().getLatestPosition();
+        drawYourselfPosition(g2d, toViewPosition(latestPosition));
+    }
+
+    protected abstract void drawYourselfPosition(Graphics2D g2d, ViewPosition position);
 
 }

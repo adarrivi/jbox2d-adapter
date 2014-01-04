@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import org.adarrivi.physicsframework.view.adapter.ViewAdapter;
 
@@ -16,6 +17,7 @@ public class SandboxPanel extends JPanel {
     private ViewAdapter<Graphics2D> viewAdapter;
 
     public SandboxPanel(ViewAdapter<Graphics2D> viewAdapter, int width, int height) {
+        setBorder(new LineBorder(Color.WHITE));
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
         setSize(width, height);
