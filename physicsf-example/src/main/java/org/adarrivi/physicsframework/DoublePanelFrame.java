@@ -9,8 +9,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import org.adarrivi.physicsframework.adapter.view.SwingViewAdapter;
+import org.adarrivi.physicsframework.adapter.view.model.ShapeViewDecoratorFactory;
 import org.adarrivi.physicsframework.adapter.view.model.ViewDecoratorFactory;
 import org.adarrivi.physicsframework.adapter.view.panel.SandboxPanel;
+import org.adarrivi.physicsframework.image.ImageDecoratorFactory;
 import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 import org.adarrivi.physicsframework.view.adapter.ViewAdapter;
 
@@ -43,10 +45,12 @@ public class DoublePanelFrame extends JFrame implements Runnable {
     @Override
     public void run() {
         centerFrame();
-        ViewDecoratorFactory viewDecoratiorFactory = new ViewDecoratorFactory(PANEL_WIDTH, PANEL_HEIGHT, PIXELS_PER_METER);
-        ViewAdapter<Graphics2D> viewAdapter = new SwingViewAdapter(physicsAdapter, viewDecoratiorFactory);
-        contentPane.add(new SandboxPanel(viewAdapter, PANEL_WIDTH, PANEL_HEIGHT));
-        contentPane.add(new SandboxPanel(viewAdapter, PANEL_WIDTH, PANEL_HEIGHT));
+        ViewDecoratorFactory viewDecoratiorFactory = new ShapeViewDecoratorFactory(PANEL_WIDTH, PANEL_HEIGHT, PIXELS_PER_METER);
+        ViewDecoratorFactory imageDecoratorFactory = new ImageDecoratorFactory(PANEL_WIDTH, PANEL_HEIGHT, PIXELS_PER_METER);
+        ViewAdapter<Graphics2D> shapeViewAdapter = new SwingViewAdapter(physicsAdapter, viewDecoratiorFactory);
+        ViewAdapter<Graphics2D> imageViewAdapter = new SwingViewAdapter(physicsAdapter, imageDecoratorFactory);
+        contentPane.add(new SandboxPanel(shapeViewAdapter, PANEL_WIDTH, PANEL_HEIGHT));
+        contentPane.add(new SandboxPanel(imageViewAdapter, PANEL_WIDTH, PANEL_HEIGHT));
     }
 
     private void centerFrame() {

@@ -22,7 +22,9 @@ public class SwingViewAdapter implements ViewAdapter<Graphics2D> {
     public void drawAll(Graphics2D g2d) {
         for (PositionalElement element : physicsAdapter.getAllElements()) {
             ViewPositionalElementDecorator<?> viewElement = viewDecoratiorFactory.decoratePositionalElement(element);
-            viewElement.drawYourself(g2d);
+            if (viewElement != null) {
+                viewElement.drawYourself(g2d);
+            }
         }
     }
 

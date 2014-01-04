@@ -2,9 +2,9 @@ package org.adarrivi.physicsframework;
 
 import javax.swing.JFrame;
 
+import org.adarrivi.physicsframework.model.SpecialElementFactory;
 import org.adarrivi.physicsframework.model.element.DynamicType;
 import org.adarrivi.physicsframework.model.element.Element;
-import org.adarrivi.physicsframework.model.element.ElementFactory;
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.SandBox;
 import org.adarrivi.physicsframework.model.force.ForceFactory;
@@ -15,7 +15,7 @@ public class StepCommand implements Runnable {
     private static final int STEPS_BETWEEN_BALLS = 50;
     private int skipBallCreation;
     private boolean pushLeft;
-    private ElementFactory elementFactory;
+    private SpecialElementFactory elementFactory;
     private ForceFactory forceFactory;
     private LinearForce rightPush;
     private LinearForce leftPush;
@@ -24,7 +24,7 @@ public class StepCommand implements Runnable {
 
     private int shape;
 
-    public StepCommand(ElementFactory elementFactory, ForceFactory forceFactory, SandBox sandBox, JFrame viewFrame) {
+    public StepCommand(SpecialElementFactory elementFactory, ForceFactory forceFactory, SandBox sandBox, JFrame viewFrame) {
         this.elementFactory = elementFactory;
         this.forceFactory = forceFactory;
         this.sandBox = sandBox;
@@ -41,10 +41,10 @@ public class StepCommand implements Runnable {
         if (skipBallCreation % STEPS_BETWEEN_BALLS == 0) {
             Element element;
             if (shape == 1) {
-                element = elementFactory.createRectangle(new Position(0f, 5f), 1f, 1f, DynamicType.DYNAMIC);
+                element = elementFactory.createCircle(new Position(0f, 5f), 0.6f, DynamicType.DYNAMIC);
             } else {
                 shape = 0;
-                element = elementFactory.createCircle(new Position(0f, 5f), 0.5f, DynamicType.DYNAMIC);
+                element = elementFactory.createSquare(new Position(0f, 5f));
             }
             if (pushLeft) {
                 leftPush.applyOn(element);

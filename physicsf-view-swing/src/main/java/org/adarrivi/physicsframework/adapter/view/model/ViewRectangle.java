@@ -26,7 +26,7 @@ class ViewRectangle extends ViewPositionalElementDecorator<Rectangle> {
 
         Shape rectangleShape = new java.awt.Rectangle(width, height);
         rectangleShape = transform.createTransformedShape(rectangleShape);
-        g2d.fill(rectangleShape);
+        g2d.draw(rectangleShape);
     }
 
 }

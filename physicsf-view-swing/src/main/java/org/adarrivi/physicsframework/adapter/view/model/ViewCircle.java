@@ -33,9 +33,9 @@ class ViewCircle extends ViewPositionalElementDecorator<Circle> {
         transformR.translate(position.getX() - viewRadius / 2, position.getY() - viewRadius / 2);
 
         rectangleShape = transformR.createTransformedShape(rectangleShape);
-        g2d.fill(circle);
+        g2d.draw(circle);
         g2d.setColor(Color.GRAY);
-        g2d.fill(rectangleShape);
+        g2d.draw(rectangleShape);
     }
 
 }

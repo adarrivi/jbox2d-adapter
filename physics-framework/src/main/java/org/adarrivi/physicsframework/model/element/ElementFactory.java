@@ -28,4 +28,8 @@ public class ElementFactory {
         return rectangle;
     }
 
+    protected PhysicsAdapter getPhysicsAdapter() {
+        return physicsAdapter;
+    }
+
 }

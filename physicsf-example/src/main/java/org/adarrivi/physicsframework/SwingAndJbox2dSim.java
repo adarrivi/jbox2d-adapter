@@ -3,8 +3,7 @@ package org.adarrivi.physicsframework;
 import org.adarrivi.physicsframework.adapter.physics.Jbox2dPhysicsAdapter;
 import org.adarrivi.physicsframework.adapter.physics.model.PhysicsDecoratorFactory;
 import org.adarrivi.physicsframework.executor.SteadyExecutor;
-import org.adarrivi.physicsframework.model.element.DynamicType;
-import org.adarrivi.physicsframework.model.element.ElementFactory;
+import org.adarrivi.physicsframework.model.SpecialElementFactory;
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.SandBox;
 import org.adarrivi.physicsframework.model.force.ForceFactory;
@@ -20,12 +19,11 @@ public class SwingAndJbox2dSim {
         PhysicsDecoratorFactory physicsDecoratorFactory = new PhysicsDecoratorFactory();
         PhysicsAdapter physicsAdapter = new Jbox2dPhysicsAdapter(physicsDecoratorFactory);
         DoublePanelFrame viewFrame = new DoublePanelFrame(physicsAdapter);
-        // PhysicsViewFrame viewFrame = new PhysicsViewFrame(physicsAdapter);
-        ElementFactory elementFactory = new ElementFactory(physicsAdapter);
+        SpecialElementFactory elementFactory = new SpecialElementFactory(physicsAdapter);
         SandBox sandBox = elementFactory.createEarthSandBox();
         Position rectanglePosition = new Position(0f, 0f);
-        rectanglePosition.setRotation(-0.5f);
-        elementFactory.createRectangle(rectanglePosition, 12f, 0.2f, DynamicType.STATIC);
+        rectanglePosition.setRotation(-0.3f);
+        elementFactory.createPlatform(rectanglePosition);
 
         ForceFactory forceFactory = new ForceFactory(physicsAdapter);
         StepCommand stepCommand = new StepCommand(elementFactory, forceFactory, sandBox, viewFrame);
