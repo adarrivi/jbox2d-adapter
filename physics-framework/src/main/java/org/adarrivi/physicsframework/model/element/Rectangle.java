@@ -1,8 +1,5 @@
 package org.adarrivi.physicsframework.model.element;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 
 public class Rectangle extends Element {
@@ -14,17 +11,6 @@ public class Rectangle extends Element {
         super(physicsAdapter, dynamicType);
         this.width = width;
         this.height = height;
-    }
-
-    public List<Position> getVertexList(Position centerPosition) {
-        List<Position> vertexList = new ArrayList<>();
-        float halfWidth = width / 2;
-        float halfHeight = height / 2;
-        vertexList.add(new Position(centerPosition.getX() - halfWidth, centerPosition.getY() + halfHeight));
-        vertexList.add(new Position(centerPosition.getX() + halfWidth, centerPosition.getY() + halfHeight));
-        vertexList.add(new Position(centerPosition.getX() + halfWidth, centerPosition.getY() - halfHeight));
-        vertexList.add(new Position(centerPosition.getX() - halfWidth, centerPosition.getY() - halfHeight));
-        return vertexList;
     }
 
     public float getWidth() {
