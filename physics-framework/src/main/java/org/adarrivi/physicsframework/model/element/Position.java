@@ -31,9 +31,4 @@ public class Position {
         return new Position(x + position.x, y + position.y);
     }
 
-    @Override
-    public String toString() {
-        return "Position [x=" + x + ", y=" + y + "]";
-    }
-
 }
