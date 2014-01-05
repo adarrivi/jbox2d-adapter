@@ -1,6 +1,5 @@
 package org.adarrivi.physicsframework.model.element;
 
-import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 
 /**
  * Represents a circle
@@ -12,8 +11,8 @@ public class Circle extends Element {
 
     private float radius;
 
-    protected Circle(PhysicsAdapter physicsAdapter, DynamicType dynamicType, float radius) {
-        super(physicsAdapter, dynamicType);
+    protected Circle(Position position, DynamicType dynamicType, float radius) {
+        super(position, dynamicType);
         this.radius = radius;
     }
 

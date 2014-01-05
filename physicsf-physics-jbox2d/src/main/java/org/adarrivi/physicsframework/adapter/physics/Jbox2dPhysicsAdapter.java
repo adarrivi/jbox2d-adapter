@@ -2,6 +2,7 @@ package org.adarrivi.physicsframework.adapter.physics;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -31,9 +32,9 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     }
 
     @Override
-    public void createElement(PositionalElement element, Position position) {
+    public void createElement(PositionalElement element) {
         PhysicsElementDecorator<?> physicsElement = physicsDecoratorFactory.decoratePositionalElement(element);
-        Body createdBody = physicsElement.addToWorld(world, position);
+        Body createdBody = physicsElement.addToWorld(world, element.getPosition());
         elementHashMap.putIfAbsent(element, createdBody);
     }
 
@@ -81,6 +82,15 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     public void step(SandBox sandBox) {
         float milliseconsPerSecond = TimeUnit.SECONDS.toMillis(1);
         world.step(sandBox.getStepSimulationMs() / milliseconsPerSecond, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
+        updateAllElementPositions();
+    }
+
+    private void updateAllElementPositions() {
+        for (Entry<PositionalElement, Body> entry : elementHashMap.entrySet()) {
+            Body body = entry.getValue();
+            PositionalElement element = entry.getKey();
+            element.updatePosition(toPosition(body));
+        }
     }
 
     @Override

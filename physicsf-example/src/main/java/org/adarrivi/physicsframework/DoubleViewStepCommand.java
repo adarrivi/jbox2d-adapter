@@ -9,6 +9,7 @@ import org.adarrivi.physicsframework.model.element.SandBox;
 import org.adarrivi.physicsframework.model.force.AngularForce;
 import org.adarrivi.physicsframework.model.force.ForceFactory;
 import org.adarrivi.physicsframework.model.force.LinearForce;
+import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 
 /**
  * Class that will step the simulation and trigger the graphical refresh. It
@@ -26,16 +27,19 @@ class DoubleViewStepCommand implements Runnable {
     private int skipBallCreation;
     private boolean createCandyBall;
     private CandyFactory elementFactory;
+    private PhysicsAdapter physicsAdapter;
     private LinearForce initialLinearForce;
     private AngularForce initialAngularForce;
     private Position startPosition = new Position(-6f, 5f);
     private SandBox sandBox;
     private JFrame viewFrame;
 
-    DoubleViewStepCommand(CandyFactory candyFactory, ForceFactory forceFactory, SandBox sandBox, JFrame viewFrame) {
+    DoubleViewStepCommand(PhysicsAdapter physicsAdapter, CandyFactory candyFactory, SandBox sandBox, JFrame viewFrame) {
         this.elementFactory = candyFactory;
         this.sandBox = sandBox;
         this.viewFrame = viewFrame;
+        this.physicsAdapter = physicsAdapter;
+        ForceFactory forceFactory = new ForceFactory();
         this.initialLinearForce = forceFactory.createLinearForce(SQUARE_FORCE_MAGNITUDE, 1);
         this.initialAngularForce = forceFactory.createAngularForce(ANGULAR_FORCE, true);
     }
@@ -44,22 +48,32 @@ class DoubleViewStepCommand implements Runnable {
     public void run() {
         if (skipBallCreation % STEPS_BETWEEN_CREATIONS == 0) {
             if (createCandyBall) {
-                Element element = elementFactory.createCandyBall(startPosition);
-                initialLinearForce.setMagnitude(CANDY_FORCE_MAGNITUDE);
-                initialLinearForce.applyOn(element);
-                initialAngularForce.setClockwise(true);
-                initialAngularForce.applyOn(element);
+                createCandyBallWithImpulse();
             } else {
-                Element element = elementFactory.createCandySquare(startPosition);
-                initialLinearForce.setMagnitude(SQUARE_FORCE_MAGNITUDE);
-                initialLinearForce.applyOn(element);
-                initialAngularForce.setClockwise(false);
-                initialAngularForce.applyOn(element);
+                createCandySquareWithImpluse();
             }
             createCandyBall = !createCandyBall;
         }
         skipBallCreation++;
-        sandBox.step();
+        physicsAdapter.step(sandBox);
         viewFrame.repaint();
+    }
+
+    private void createCandyBallWithImpulse() {
+        Element candySquare = elementFactory.createCandyBall(startPosition);
+        physicsAdapter.createElement(candySquare);
+        initialLinearForce.setMagnitude(CANDY_FORCE_MAGNITUDE);
+        physicsAdapter.applyForce(initialLinearForce, candySquare);
+        initialAngularForce.setClockwise(true);
+        physicsAdapter.applyForce(initialAngularForce, candySquare);
+    }
+
+    private void createCandySquareWithImpluse() {
+        Element candySquare = elementFactory.createCandySquare(startPosition);
+        physicsAdapter.createElement(candySquare);
+        initialLinearForce.setMagnitude(SQUARE_FORCE_MAGNITUDE);
+        physicsAdapter.applyForce(initialLinearForce, candySquare);
+        initialAngularForce.setClockwise(false);
+        physicsAdapter.applyForce(initialAngularForce, candySquare);
     }
 }

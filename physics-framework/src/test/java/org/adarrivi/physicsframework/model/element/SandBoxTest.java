@@ -1,25 +1,14 @@
 package org.adarrivi.physicsframework.model.element;
 
-import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class SandBoxTest {
 
     private static final boolean EARTH_GRAVITY = true;
     private static final long DEFAULT_STEP_SIMULATION_MS = 16;
 
-    @Mock
-    private PhysicsAdapter physicsAdapter;
-
-    @InjectMocks
-    private SandBox victim = new SandBox(physicsAdapter, EARTH_GRAVITY);
+    private SandBox victim = new SandBox(EARTH_GRAVITY);
 
     // output
     private boolean booleanResult;
@@ -62,20 +51,6 @@ public class SandBoxTest {
 
     private void whenSetStepSimulationMs(long longValue) {
         victim.setStepSimulationMs(longValue);
-    }
-
-    @Test
-    public void step_InvokesPyAdStep() {
-        whenStep();
-        thenShouldInvokePyAdStep();
-    }
-
-    private void whenStep() {
-        victim.step();
-    }
-
-    private void thenShouldInvokePyAdStep() {
-        Mockito.verify(physicsAdapter).step(victim);
     }
 
 }

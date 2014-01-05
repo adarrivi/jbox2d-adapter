@@ -2,12 +2,12 @@ package org.adarrivi.physicsframework.model;
 
 import org.adarrivi.physicsframework.model.element.Circle;
 import org.adarrivi.physicsframework.model.element.DynamicType;
-import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
+import org.adarrivi.physicsframework.model.element.Position;
 
 public class CandyBall extends Circle {
 
-    CandyBall(PhysicsAdapter physicsAdapter) {
-        super(physicsAdapter, DynamicType.DYNAMIC, 0.6f);
+    CandyBall(Position position) {
+        super(position, DynamicType.DYNAMIC, 0.6f);
     }
 
 }

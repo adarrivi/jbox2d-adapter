@@ -39,7 +39,7 @@ public abstract class ViewPositionalElementDecorator<P extends PositionalElement
 
     @Override
     public final void drawYourself(Graphics2D g2d) {
-        Position latestPosition = getDecoratedElement().getLatestPosition();
+        Position latestPosition = getDecoratedElement().getPosition();
         drawYourselfAtPosition(g2d, toViewPosition(latestPosition));
     }
 

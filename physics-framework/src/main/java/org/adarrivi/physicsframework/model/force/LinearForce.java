@@ -1,13 +1,12 @@
 package org.adarrivi.physicsframework.model.force;
 
-import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 
 public class LinearForce extends Force {
 
     private float directionAngle;
 
-    LinearForce(PhysicsAdapter physicsAdapter, float magnitude, float directionAngle) {
-        super(physicsAdapter, magnitude);
+    LinearForce(float magnitude, float directionAngle) {
+        super(magnitude);
         this.directionAngle = directionAngle;
     }
 

@@ -9,7 +9,7 @@ import org.adarrivi.physicsframework.model.force.Force;
 
 public interface PhysicsAdapter {
 
-    void createElement(PositionalElement element, Position position);
+    void createElement(PositionalElement element);
 
     Position getLatestPosition(PositionalElement element);
 

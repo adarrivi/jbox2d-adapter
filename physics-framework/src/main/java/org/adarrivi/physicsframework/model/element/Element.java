@@ -1,20 +1,23 @@
 package org.adarrivi.physicsframework.model.element;
 
-import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
-
 public abstract class Element implements PositionalElement {
 
-    private PhysicsAdapter physicsAdapter;
     private DynamicType dynamicType;
+    private Position position;
 
-    protected Element(PhysicsAdapter physicsAdapter, DynamicType dynamicType) {
-        this.physicsAdapter = physicsAdapter;
+    protected Element(Position position, DynamicType dynamicType) {
         this.dynamicType = dynamicType;
+        updatePosition(position);
     }
 
     @Override
-    public Position getLatestPosition() {
-        return physicsAdapter.getLatestPosition(this);
+    public final void updatePosition(Position position) {
+        this.position = position;
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
     }
 
     @Override
