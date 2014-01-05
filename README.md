@@ -16,6 +16,8 @@ Or physics-example/../_ShapeAndCandyJboxSimulation.java_:
 ![Shape and Candy execution](https://raw.github.com/adarrivi/jbox2d-adapter/master/wiki/images/shapeAndCandyExecution.PNG)
 
 
+Short [video](http://www.youtube.com/watch?v=_P_JGfJ0qZg)
+
 To archive this, and inspired by the way [SLF4J](http://www.slf4j.org/)is designed (one abstract implementation and multiple _real ones_), a layer has been created between the possible simulations (examples) and the view/physics engines:
 
 ![General Architecture](https://raw.github.com/adarrivi/jbox2d-adapter/master/wiki/images/generalArchitecture.PNG)
