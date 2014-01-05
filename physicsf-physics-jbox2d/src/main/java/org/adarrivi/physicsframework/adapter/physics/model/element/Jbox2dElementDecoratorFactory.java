@@ -6,11 +6,11 @@ import org.adarrivi.physicsframework.model.element.Rectangle;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
-public class Jbox2dPhysicsDecoratorFactory {
+public class Jbox2dElementDecoratorFactory {
 
     private static final float EARTH_GRAVITY = -10f;
 
-    public <P extends PositionalElement> PhysicsElementDecorator<?> decoratePositionalElement(P element) {
+    public PhysicsElementDecorator<?> decoratePositionalElement(PositionalElement element) {
         if (element instanceof Circle) {
             return new PhysicsCircle((Circle) element);
         }

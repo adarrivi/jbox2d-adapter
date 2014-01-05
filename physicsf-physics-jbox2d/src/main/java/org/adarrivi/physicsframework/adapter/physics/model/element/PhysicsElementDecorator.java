@@ -22,10 +22,6 @@ public abstract class PhysicsElementDecorator<P extends PositionalElement> imple
         return decoratedElement;
     }
 
-    protected Vec2 toVec2(Position position) {
-        return new Vec2(position.getX(), position.getY());
-    }
-
     @Override
     public final Body addToWorld(World world) {
         BodyDef bd = new BodyDef();
@@ -37,6 +33,10 @@ public abstract class PhysicsElementDecorator<P extends PositionalElement> imple
         Body body = world.createBody(bd);
         body.createFixture(createFixtureDef());
         return body;
+    }
+
+    private Vec2 toVec2(Position position) {
+        return new Vec2(position.getX(), position.getY());
     }
 
     protected abstract FixtureDef createFixtureDef();

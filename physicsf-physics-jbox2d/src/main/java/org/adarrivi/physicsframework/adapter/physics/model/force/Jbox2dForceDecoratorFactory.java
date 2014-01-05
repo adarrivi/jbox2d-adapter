@@ -4,7 +4,7 @@ import org.adarrivi.physicsframework.model.force.AngularForce;
 import org.adarrivi.physicsframework.model.force.Force;
 import org.adarrivi.physicsframework.model.force.LinearForce;
 
-public class Jbox2dPhysicsForceDecoratorFactory {
+public class Jbox2dForceDecoratorFactory {
 
     public PhysicsForceDecorator<?> createForceDecorator(Force force) {
         if (force instanceof LinearForce) {

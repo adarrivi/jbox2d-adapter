@@ -6,9 +6,9 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-import org.adarrivi.physicsframework.adapter.physics.model.element.Jbox2dPhysicsDecoratorFactory;
+import org.adarrivi.physicsframework.adapter.physics.model.element.Jbox2dElementDecoratorFactory;
 import org.adarrivi.physicsframework.adapter.physics.model.element.PhysicsElementDecorator;
-import org.adarrivi.physicsframework.adapter.physics.model.force.Jbox2dPhysicsForceDecoratorFactory;
+import org.adarrivi.physicsframework.adapter.physics.model.force.Jbox2dForceDecoratorFactory;
 import org.adarrivi.physicsframework.adapter.physics.model.force.PhysicsForceDecorator;
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.PositionalElement;
@@ -24,19 +24,19 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     private static final int POSITION_ITERATIONS = 3;
     private static final int VELOCITY_ITERATIONS = 8;
     private ConcurrentHashMap<PositionalElement, Body> elementHashMap = new ConcurrentHashMap<>();
-    private Jbox2dPhysicsDecoratorFactory physicsDecoratorFactory;
-    private Jbox2dPhysicsForceDecoratorFactory forcesDecoratorFactory;
+    private Jbox2dElementDecoratorFactory elementDecoratorFactory;
+    private Jbox2dForceDecoratorFactory forceDecoratorFactory;
     private World world;
 
-    public Jbox2dPhysicsAdapter(Jbox2dPhysicsDecoratorFactory physicsDecoratorFactory,
-            Jbox2dPhysicsForceDecoratorFactory forcesDecoratorFactory) {
-        this.physicsDecoratorFactory = physicsDecoratorFactory;
-        this.forcesDecoratorFactory = forcesDecoratorFactory;
+    public Jbox2dPhysicsAdapter(Jbox2dElementDecoratorFactory physicsDecoratorFactory,
+            Jbox2dForceDecoratorFactory forcesDecoratorFactory) {
+        this.elementDecoratorFactory = physicsDecoratorFactory;
+        this.forceDecoratorFactory = forcesDecoratorFactory;
     }
 
     @Override
     public void createElement(PositionalElement element) {
-        PhysicsElementDecorator<?> physicsElement = physicsDecoratorFactory.decoratePositionalElement(element);
+        PhysicsElementDecorator<?> physicsElement = elementDecoratorFactory.decoratePositionalElement(element);
         Body createdBody = physicsElement.addToWorld(world);
         elementHashMap.putIfAbsent(element, createdBody);
     }
@@ -61,7 +61,7 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
 
     @Override
     public void applyForce(Force force, PositionalElement element) {
-        PhysicsForceDecorator<?> forceDecorator = forcesDecoratorFactory.createForceDecorator(force);
+        PhysicsForceDecorator<?> forceDecorator = forceDecoratorFactory.createForceDecorator(force);
         Body body = elementHashMap.get(element);
         if (body != null) {
             forceDecorator.applyForce(body);
@@ -70,7 +70,7 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
 
     @Override
     public void createSandBox(SandBox sandBox) {
-        world = physicsDecoratorFactory.createWorld(sandBox.hasEarthGravity());
+        world = elementDecoratorFactory.createWorld(sandBox.hasEarthGravity());
     }
 
     @Override
