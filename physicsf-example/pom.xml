@@ -16,22 +16,22 @@
 	</properties>
 
 	<dependencies>
-	
 
-				<!-- Physics framework -->
+
+		<!-- Physics framework -->
 		<dependency>
 			<groupId>org.adarrivi</groupId>
 			<artifactId>physics-framework</artifactId>
 			<version>${org.adarrivi.physics-framework.version}</version>
 		</dependency>
-		
-						<!-- Physics framework implementation -->
+
+		<!-- Physics framework implementation -->
 		<dependency>
 			<groupId>org.adarrivi</groupId>
 			<artifactId>physicsf-physics-jbox2d</artifactId>
 			<version>${org.adarrivi.physics-framework.version}</version>
 		</dependency>
-						<!-- Physics framework implementation -->
+		<!-- Physics framework implementation -->
 		<dependency>
 			<groupId>org.adarrivi</groupId>
 			<artifactId>physicsf-view-swing</artifactId>
@@ -39,8 +39,8 @@
 		</dependency>
 
 
-		
-		
+
+
 
 		<!-- Logging -->
 		<!-- Abstract login that allow us to change the underlying logging implementation -->

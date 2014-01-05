@@ -22,12 +22,6 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${org.slf4j.version}</version>
 		</dependency>
-		<!-- Using log4j implementation (this can be changed) -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${org.slf4j.version}</version>
-		</dependency>
 
 		<!-- Testing dependencies -->
 		<dependency>

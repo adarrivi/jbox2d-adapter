@@ -9,8 +9,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.7</jdk.version>
 		<org.adarrivi.physics-framework.version>0.0.1-SNAPSHOT</org.adarrivi.physics-framework.version>
+		<org.slf4j.version>1.7.5</org.slf4j.version>
 		<mockito.version>1.9.5</mockito.version>
 		<junit.version>4.11</junit.version>
+		<sonar.language>java</sonar.language>
 	</properties>
 
 	<dependencies>
@@ -19,6 +21,20 @@
 			<groupId>org.adarrivi</groupId>
 			<artifactId>physics-framework</artifactId>
 			<version>${org.adarrivi.physics-framework.version}</version>
+		</dependency>
+
+		<!-- Logging -->
+		<!-- Abstract login that allow us to change the underlying logging implementation -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<!-- Using log4j implementation (this can be changed) -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j.version}</version>
 		</dependency>
 
 		<!-- Testing dependencies -->
@@ -73,6 +89,14 @@
 					<target>${jdk.version}</target>
 				</configuration>
 			</plugin>
+
+			<!-- Sonar -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
+			
 		</plugins>
 	</build>
 </project>
