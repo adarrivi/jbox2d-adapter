@@ -1,37 +1,22 @@
 package org.adarrivi.physicsframework.model.force;
 
-import org.adarrivi.physicsframework.model.element.Element;
 import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 
 public class LinearForce extends Force {
 
-    private float magnitude;
-    private float direction;
+    private float directionAngle;
 
-    LinearForce(PhysicsAdapter physicsAdapter, float magnitude, float direction) {
-        super(physicsAdapter);
-        this.magnitude = magnitude;
-        this.direction = direction;
+    LinearForce(PhysicsAdapter physicsAdapter, float magnitude, float directionAngle) {
+        super(physicsAdapter, magnitude);
+        this.directionAngle = directionAngle;
     }
 
-    public float getMagnitud() {
-        return magnitude;
+    public float getDirectionAngle() {
+        return directionAngle;
     }
 
-    public void setMagnitud(float magnitud) {
-        this.magnitude = magnitud;
-    }
-
-    public float getDirection() {
-        return direction;
-    }
-
-    public void setDirection(float direction) {
-        this.direction = direction;
-    }
-
-    public <E extends Element> void applyOn(E element) {
-        getPhysicsAdapter().applyForce(this, element);
+    public void setDirectionAngle(float direction) {
+        this.directionAngle = direction;
     }
 
 }

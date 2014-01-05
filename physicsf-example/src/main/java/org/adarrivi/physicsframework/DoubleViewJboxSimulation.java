@@ -18,6 +18,7 @@ import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
  */
 public class DoubleViewJboxSimulation {
 
+    private static final int STEPS_PER_SECOND = 60;
     private static final int PIXELS_PER_METER = 25;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
@@ -33,15 +34,18 @@ public class DoubleViewJboxSimulation {
         viewFrame.setFrameSize(WIDTH, HEIGHT, PIXELS_PER_METER);
         CandyFactory candyFactory = new CandyFactory(physicsAdapter);
         SandBox sandBox = candyFactory.createEarthSandBox();
-        Position barPosition = new Position(0f, 0f);
-        barPosition.setRotation(-0.3f);
-        candyFactory.createCandyBar(barPosition);
+        Position candyBar1Position = new Position(-3f, -3f);
+        candyBar1Position.setRotation(-0.4f);
+        candyFactory.createCandyBar(candyBar1Position);
+        Position candyBar2Position = new Position(3f, 3f);
+        candyBar2Position.setRotation(0.4f);
+        candyFactory.createCandyBar(candyBar2Position);
 
         ForceFactory forceFactory = new ForceFactory(physicsAdapter);
-        StepCommand stepCommand = new StepCommand(candyFactory, forceFactory, sandBox, viewFrame);
+        DoubleViewStepCommand stepCommand = new DoubleViewStepCommand(candyFactory, forceFactory, sandBox, viewFrame);
         SteadyExecutor steadyExecutor = new SteadyExecutor(stepCommand);
 
-        steadyExecutor.executeNoFasterThan(60);
+        steadyExecutor.executeNoFasterThan(STEPS_PER_SECOND);
     }
 
 }

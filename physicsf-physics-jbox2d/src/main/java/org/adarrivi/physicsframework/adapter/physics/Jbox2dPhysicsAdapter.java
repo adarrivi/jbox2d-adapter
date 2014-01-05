@@ -10,6 +10,7 @@ import org.adarrivi.physicsframework.adapter.physics.model.PhysicsElementDecorat
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.PositionalElement;
 import org.adarrivi.physicsframework.model.element.SandBox;
+import org.adarrivi.physicsframework.model.force.AngularForce;
 import org.adarrivi.physicsframework.model.force.Force;
 import org.adarrivi.physicsframework.model.force.LinearForce;
 import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
@@ -30,14 +31,14 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     }
 
     @Override
-    public <P extends PositionalElement> void createElement(P element, Position position) {
+    public void createElement(PositionalElement element, Position position) {
         PhysicsElementDecorator<?> physicsElement = physicsDecoratorFactory.decoratePositionalElement(element);
         Body createdBody = physicsElement.addToWorld(world, position);
         elementHashMap.putIfAbsent(element, createdBody);
     }
 
     @Override
-    public <P extends PositionalElement> Position getLatestPosition(P element) {
+    public Position getLatestPosition(PositionalElement element) {
         Body body = elementHashMap.get(element);
         return toPosition(body);
     }
@@ -50,19 +51,24 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     }
 
     @Override
-    public <P extends PositionalElement> void destroy(P element) {
+    public void destroy(PositionalElement element) {
         world.destroyBody(elementHashMap.get(element));
     }
 
     @Override
-    public <F extends Force, P extends PositionalElement> void applyForce(F force, P element) {
+    public void applyForce(Force force, PositionalElement element) {
         if (force instanceof LinearForce) {
             LinearForce linearForce = (LinearForce) force;
             Body body = elementHashMap.get(element);
-            Double xVector = linearForce.getMagnitud() * Math.cos(linearForce.getDirection());
-            Double yVector = linearForce.getMagnitud() * Math.sin(linearForce.getDirection());
+            Double xVector = linearForce.getMagnitude() * Math.cos(linearForce.getDirectionAngle());
+            Double yVector = linearForce.getMagnitude() * Math.sin(linearForce.getDirectionAngle());
             Vec2 forceVector = new Vec2(xVector.floatValue(), yVector.floatValue());
             body.applyForceToCenter(forceVector);
+        } else if (force instanceof AngularForce) {
+            AngularForce angularForce = (AngularForce) force;
+            Body body = elementHashMap.get(element);
+            float torque = angularForce.isClockwise() ? -angularForce.getMagnitude() : angularForce.getMagnitude();
+            body.applyTorque(torque);
         }
     }
 

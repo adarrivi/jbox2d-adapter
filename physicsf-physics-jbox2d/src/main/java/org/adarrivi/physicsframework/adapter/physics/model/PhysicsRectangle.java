@@ -12,7 +12,7 @@ import org.jbox2d.dynamics.World;
 
 public class PhysicsRectangle extends PhysicsElementDecorator<Rectangle> {
 
-    private static final float FRICTION = 0.9f;
+    private static final float FRICTION = 0.6f;
     private static final float DENSITY = 1.0f;
 
     protected PhysicsRectangle(Rectangle decoratedElement) {

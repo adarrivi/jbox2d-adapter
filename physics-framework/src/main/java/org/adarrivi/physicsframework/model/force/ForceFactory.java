@@ -14,4 +14,8 @@ public class ForceFactory {
         return new LinearForce(physicsAdapter, magnitude, direction);
     }
 
+    public AngularForce createAngularForce(float magnitude, boolean clockwise) {
+        return new AngularForce(physicsAdapter, magnitude, clockwise);
+    }
+
 }

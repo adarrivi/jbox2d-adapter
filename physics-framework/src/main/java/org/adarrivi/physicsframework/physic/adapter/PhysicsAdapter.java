@@ -9,13 +9,13 @@ import org.adarrivi.physicsframework.model.force.Force;
 
 public interface PhysicsAdapter {
 
-    <P extends PositionalElement> void createElement(P element, Position position);
+    void createElement(PositionalElement element, Position position);
 
-    <P extends PositionalElement> Position getLatestPosition(P element);
+    Position getLatestPosition(PositionalElement element);
 
-    <P extends PositionalElement> void destroy(P element);
+    void destroy(PositionalElement element);
 
-    <F extends Force, P extends PositionalElement> void applyForce(F force, P element);
+    void applyForce(Force force, PositionalElement element);
 
     void createSandBox(SandBox sandBox);
 
