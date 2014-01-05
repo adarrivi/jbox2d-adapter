@@ -6,7 +6,7 @@ import org.adarrivi.physicsframework.model.element.Rectangle;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
-public class PhysicsDecoratorFactory {
+public class Jbox2dPhysicsDecoratorFactory {
 
     private static final float EARTH_GRAVITY = -10f;
 

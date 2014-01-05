@@ -1,8 +1,6 @@
 package org.adarrivi.physicsframework.adapter.view.model;
 
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.PositionalElement;
@@ -26,20 +24,12 @@ public abstract class ViewPositionalElementDecorator<P extends PositionalElement
         return decoratedElement;
     }
 
-    protected ViewPosition toViewPosition(Position worldPosition) {
+    private ViewPosition toViewPosition(Position worldPosition) {
         double offsetX = (screenWidth / 2) / pixelsPerMeter;
         double offsetY = (screenHeight / 2) / pixelsPerMeter;
         Double drawPositionX = (worldPosition.getX() + offsetX) * pixelsPerMeter;
         Double drawPositionY = (-worldPosition.getY() + offsetY) * pixelsPerMeter;
         return new ViewPosition(drawPositionX.intValue(), drawPositionY.intValue(), -worldPosition.getRotation());
-    }
-
-    protected List<ViewPosition> toViewPositionList(List<Position> worldPositions) {
-        List<ViewPosition> viewPositions = new ArrayList<>();
-        for (Position worldPosition : worldPositions) {
-            viewPositions.add(toViewPosition(worldPosition));
-        }
-        return viewPositions;
     }
 
     protected int toViewValue(float worldValue) {
@@ -50,9 +40,9 @@ public abstract class ViewPositionalElementDecorator<P extends PositionalElement
     @Override
     public final void drawYourself(Graphics2D g2d) {
         Position latestPosition = getDecoratedElement().getLatestPosition();
-        drawYourselfPosition(g2d, toViewPosition(latestPosition));
+        drawYourselfAtPosition(g2d, toViewPosition(latestPosition));
     }
 
-    protected abstract void drawYourselfPosition(Graphics2D g2d, ViewPosition position);
+    protected abstract void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position);
 
 }

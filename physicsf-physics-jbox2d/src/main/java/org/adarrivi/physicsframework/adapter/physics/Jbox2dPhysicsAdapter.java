@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-import org.adarrivi.physicsframework.adapter.physics.model.PhysicsDecoratorFactory;
+import org.adarrivi.physicsframework.adapter.physics.model.Jbox2dPhysicsDecoratorFactory;
 import org.adarrivi.physicsframework.adapter.physics.model.PhysicsElementDecorator;
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.PositionalElement;
@@ -22,10 +22,10 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     private static final int POSITION_ITERATIONS = 3;
     private static final int VELOCITY_ITERATIONS = 8;
     private ConcurrentHashMap<PositionalElement, Body> elementHashMap = new ConcurrentHashMap<>();
-    private PhysicsDecoratorFactory physicsDecoratorFactory;
+    private Jbox2dPhysicsDecoratorFactory physicsDecoratorFactory;
     private World world;
 
-    public Jbox2dPhysicsAdapter(PhysicsDecoratorFactory physicsDecoratorFactory) {
+    public Jbox2dPhysicsAdapter(Jbox2dPhysicsDecoratorFactory physicsDecoratorFactory) {
         this.physicsDecoratorFactory = physicsDecoratorFactory;
     }
 

@@ -14,7 +14,7 @@ class ViewRectangle extends ViewPositionalElementDecorator<Rectangle> {
     }
 
     @Override
-    protected void drawYourselfPosition(Graphics2D g2d, ViewPosition position) {
+    protected void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position) {
         g2d.setColor(Color.GREEN);
 
         int width = toViewValue(getDecoratedElement().getWidth());

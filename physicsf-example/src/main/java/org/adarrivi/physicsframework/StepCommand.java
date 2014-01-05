@@ -2,59 +2,51 @@ package org.adarrivi.physicsframework;
 
 import javax.swing.JFrame;
 
-import org.adarrivi.physicsframework.model.SpecialElementFactory;
-import org.adarrivi.physicsframework.model.element.DynamicType;
+import org.adarrivi.physicsframework.model.CandyFactory;
 import org.adarrivi.physicsframework.model.element.Element;
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.SandBox;
 import org.adarrivi.physicsframework.model.force.ForceFactory;
 import org.adarrivi.physicsframework.model.force.LinearForce;
 
-public class StepCommand implements Runnable {
+/**
+ * Class that will step the simulation and trigger the graphical refresh. It
+ * also creates circles and squares every few steps
+ * 
+ * @author adarrivi
+ * 
+ */
+class StepCommand implements Runnable {
 
-    private static final int STEPS_BETWEEN_BALLS = 50;
+    private static final float FORCE_MAGNITUDE = 150f;
+    private static final int STEPS_BETWEEN_CREATIONS = 50;
     private int skipBallCreation;
-    private boolean pushLeft;
-    private SpecialElementFactory elementFactory;
-    private ForceFactory forceFactory;
-    private LinearForce rightPush;
-    private LinearForce leftPush;
+    private boolean createBall;
+    private CandyFactory elementFactory;
+    private LinearForce initialForce;
+    private Position startPosition = new Position(0f, 5f);
     private SandBox sandBox;
     private JFrame viewFrame;
 
-    private int shape;
-
-    public StepCommand(SpecialElementFactory elementFactory, ForceFactory forceFactory, SandBox sandBox, JFrame viewFrame) {
-        this.elementFactory = elementFactory;
-        this.forceFactory = forceFactory;
+    StepCommand(CandyFactory candyFactory, ForceFactory forceFactory, SandBox sandBox, JFrame viewFrame) {
+        this.elementFactory = candyFactory;
         this.sandBox = sandBox;
         this.viewFrame = viewFrame;
-    }
-
-    public void createInitialElements() {
-        rightPush = forceFactory.createLinearForce(50f, 1);
-        leftPush = forceFactory.createLinearForce(50f, 2);
+        this.initialForce = forceFactory.createLinearForce(FORCE_MAGNITUDE, 1);
     }
 
     @Override
     public void run() {
-        if (skipBallCreation % STEPS_BETWEEN_BALLS == 0) {
-            Element element;
-            if (shape == 1) {
-                element = elementFactory.createCircle(new Position(0f, 5f), 0.6f, DynamicType.DYNAMIC);
+        if (skipBallCreation % STEPS_BETWEEN_CREATIONS == 0) {
+            if (createBall) {
+                Element element = elementFactory.createCandyBall(startPosition);
+                initialForce.applyOn(element);
             } else {
-                shape = 0;
-                element = elementFactory.createSquare(new Position(0f, 5f));
+                Element element = elementFactory.createCandySquare(startPosition);
+                initialForce.applyOn(element);
             }
-            if (pushLeft) {
-                leftPush.applyOn(element);
-            } else {
-                rightPush.applyOn(element);
-            }
-            pushLeft = !pushLeft;
-            shape++;
+            createBall = !createBall;
         }
-
         skipBallCreation++;
         sandBox.step();
         viewFrame.repaint();

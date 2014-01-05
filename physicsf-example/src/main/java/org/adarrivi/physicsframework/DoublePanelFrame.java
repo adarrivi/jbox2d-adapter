@@ -12,20 +12,25 @@ import org.adarrivi.physicsframework.adapter.view.SwingViewAdapter;
 import org.adarrivi.physicsframework.adapter.view.model.ShapeViewDecoratorFactory;
 import org.adarrivi.physicsframework.adapter.view.model.ViewDecoratorFactory;
 import org.adarrivi.physicsframework.adapter.view.panel.SandboxPanel;
-import org.adarrivi.physicsframework.image.ImageDecoratorFactory;
 import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
 import org.adarrivi.physicsframework.view.adapter.ViewAdapter;
 
+import candy.ViewCandyDecoratorFactory;
+
+/**
+ * JFrame containing two panels, each one with a different view representation
+ * of the same simulation
+ * 
+ * @author adarrivi
+ * 
+ */
 public class DoublePanelFrame extends JFrame implements Runnable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final int PIXELS_PER_METER = 25;
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
-
-    private static final int PANEL_WIDTH = 400;
-    private static final int PANEL_HEIGHT = 600;
+    private int frameWidth;
+    private int frameHeight;
+    private int pixelsPerMeter;
 
     private PhysicsAdapter physicsAdapter;
     private JPanel contentPane;
@@ -42,19 +47,26 @@ public class DoublePanelFrame extends JFrame implements Runnable {
         SwingUtilities.invokeLater(this);
     }
 
+    public void setFrameSize(int width, int height, int pixelsPerMeter) {
+        this.frameWidth = width;
+        this.frameHeight = height;
+        this.pixelsPerMeter = pixelsPerMeter;
+    }
+
     @Override
     public void run() {
         centerFrame();
-        ViewDecoratorFactory viewDecoratiorFactory = new ShapeViewDecoratorFactory(PANEL_WIDTH, PANEL_HEIGHT, PIXELS_PER_METER);
-        ViewDecoratorFactory imageDecoratorFactory = new ImageDecoratorFactory(PANEL_WIDTH, PANEL_HEIGHT, PIXELS_PER_METER);
+        Double panelWidth = frameWidth * 0.5;
+        ViewDecoratorFactory viewDecoratiorFactory = new ShapeViewDecoratorFactory(panelWidth.intValue(), frameHeight, pixelsPerMeter);
+        ViewDecoratorFactory imageDecoratorFactory = new ViewCandyDecoratorFactory(panelWidth.intValue(), frameHeight, pixelsPerMeter);
         ViewAdapter<Graphics2D> shapeViewAdapter = new SwingViewAdapter(physicsAdapter, viewDecoratiorFactory);
         ViewAdapter<Graphics2D> imageViewAdapter = new SwingViewAdapter(physicsAdapter, imageDecoratorFactory);
-        contentPane.add(new SandboxPanel(shapeViewAdapter, PANEL_WIDTH, PANEL_HEIGHT));
-        contentPane.add(new SandboxPanel(imageViewAdapter, PANEL_WIDTH, PANEL_HEIGHT));
+        contentPane.add(new SandboxPanel(shapeViewAdapter, panelWidth.intValue(), frameHeight));
+        contentPane.add(new SandboxPanel(imageViewAdapter, panelWidth.intValue(), frameHeight));
     }
 
     private void centerFrame() {
-        setSize(WIDTH, HEIGHT);
+        setSize(frameWidth, frameHeight);
         // set location must be called after setSize to centre the frame
         setLocationRelativeTo(null);
     }

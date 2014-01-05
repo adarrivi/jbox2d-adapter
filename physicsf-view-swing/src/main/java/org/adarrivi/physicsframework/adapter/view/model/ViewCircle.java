@@ -15,7 +15,7 @@ class ViewCircle extends ViewPositionalElementDecorator<Circle> {
     }
 
     @Override
-    protected void drawYourselfPosition(Graphics2D g2d, ViewPosition position) {
+    protected void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position) {
         g2d.setColor(Color.BLUE);
 
         int viewRadius = toViewValue(getDecoratedElement().getRadius());
