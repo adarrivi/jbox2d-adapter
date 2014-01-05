@@ -1,14 +1,9 @@
 package org.adarrivi.physicsframework.adapter.physics.model;
 
 import org.adarrivi.physicsframework.model.element.Circle;
-import org.adarrivi.physicsframework.model.element.DynamicType;
-import org.adarrivi.physicsframework.model.element.Position;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
-import org.jbox2d.dynamics.World;
 
 public class PhysicsCircle extends PhysicsElementDecorator<Circle> {
 
@@ -20,24 +15,14 @@ public class PhysicsCircle extends PhysicsElementDecorator<Circle> {
     }
 
     @Override
-    public Body addToWorld(World world, Position position) {
-        Circle decoratedCircle = getDecoratedElement();
+    protected Body addFixtureDefinition(Body body) {
         CircleShape circle = new CircleShape();
-        circle.m_radius = decoratedCircle.getRadius();
-
-        FixtureDef fd = new FixtureDef();
-        fd.shape = circle;
-        fd.density = DENSITY;
-        fd.friction = FRICTION;
-
-        BodyDef bd = new BodyDef();
-        if (DynamicType.DYNAMIC.equals(decoratedCircle.getDynamicType())) {
-            bd.type = BodyType.DYNAMIC;
-        }
-        bd.position = toVec2(position);
-        bd.angle = position.getRotation();
-        Body body = world.createBody(bd);
-        body.createFixture(fd);
+        circle.m_radius = getDecoratedElement().getRadius();
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = circle;
+        fixtureDef.density = DENSITY;
+        fixtureDef.friction = FRICTION;
+        body.createFixture(fixtureDef);
         return body;
     }
 

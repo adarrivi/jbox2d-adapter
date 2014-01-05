@@ -34,7 +34,7 @@ public class Jbox2dPhysicsAdapter implements PhysicsAdapter {
     @Override
     public void createElement(PositionalElement element) {
         PhysicsElementDecorator<?> physicsElement = physicsDecoratorFactory.decoratePositionalElement(element);
-        Body createdBody = physicsElement.addToWorld(world, element.getPosition());
+        Body createdBody = physicsElement.addToWorld(world);
         elementHashMap.putIfAbsent(element, createdBody);
     }
 

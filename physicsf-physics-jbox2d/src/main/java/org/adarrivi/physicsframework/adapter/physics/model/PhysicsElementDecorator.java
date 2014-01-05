@@ -1,10 +1,13 @@
 package org.adarrivi.physicsframework.adapter.physics.model;
 
-import java.util.List;
-
+import org.adarrivi.physicsframework.model.element.DynamicType;
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.PositionalElement;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.World;
 
 public abstract class PhysicsElementDecorator<P extends PositionalElement> implements WorldElement {
 
@@ -22,12 +25,18 @@ public abstract class PhysicsElementDecorator<P extends PositionalElement> imple
         return new Vec2(position.getX(), position.getY());
     }
 
-    protected Vec2[] toVec2Array(List<Position> positionList) {
-        Vec2[] vec2Array = new Vec2[positionList.size()];
-        for (int i = 0; i < positionList.size(); i++) {
-            vec2Array[i] = toVec2(positionList.get(i));
+    @Override
+    public final Body addToWorld(World world) {
+        BodyDef bd = new BodyDef();
+        if (DynamicType.DYNAMIC.equals(decoratedElement.getDynamicType())) {
+            bd.type = BodyType.DYNAMIC;
         }
-        return vec2Array;
+        bd.position = toVec2(decoratedElement.getPosition());
+        bd.angle = decoratedElement.getPosition().getRotation();
+        Body body = world.createBody(bd);
+        return addFixtureDefinition(body);
     }
+
+    protected abstract Body addFixtureDefinition(Body body);
 
 }

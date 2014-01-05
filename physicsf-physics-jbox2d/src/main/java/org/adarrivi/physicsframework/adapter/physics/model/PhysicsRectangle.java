@@ -1,14 +1,9 @@
 package org.adarrivi.physicsframework.adapter.physics.model;
 
-import org.adarrivi.physicsframework.model.element.DynamicType;
-import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.Rectangle;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
-import org.jbox2d.dynamics.World;
 
 public class PhysicsRectangle extends PhysicsElementDecorator<Rectangle> {
 
@@ -20,24 +15,14 @@ public class PhysicsRectangle extends PhysicsElementDecorator<Rectangle> {
     }
 
     @Override
-    public Body addToWorld(World world, Position position) {
-        Rectangle decoratedRectangle = getDecoratedElement();
-
-        FixtureDef fd = new FixtureDef();
-        PolygonShape sd = new PolygonShape();
-        sd.setAsBox(decoratedRectangle.getWidth() / 2, decoratedRectangle.getHeight() / 2);
-        fd.shape = sd;
-        fd.density = DENSITY;
-        fd.friction = FRICTION;
-
-        BodyDef bd = new BodyDef();
-        bd.position = toVec2(position);
-        bd.angle = position.getRotation();
-        if (DynamicType.DYNAMIC.equals(decoratedRectangle.getDynamicType())) {
-            bd.type = BodyType.DYNAMIC;
-        }
-        Body body = world.createBody(bd);
-        body.createFixture(fd);
+    protected Body addFixtureDefinition(Body body) {
+        FixtureDef fixtureDef = new FixtureDef();
+        PolygonShape boxShape = new PolygonShape();
+        boxShape.setAsBox(getDecoratedElement().getWidth() / 2, getDecoratedElement().getHeight() / 2);
+        fixtureDef.shape = boxShape;
+        fixtureDef.density = DENSITY;
+        fixtureDef.friction = FRICTION;
+        body.createFixture(fixtureDef);
         return body;
     }
 
