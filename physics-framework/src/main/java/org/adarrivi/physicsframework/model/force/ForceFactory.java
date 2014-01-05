@@ -1,6 +1,11 @@
 package org.adarrivi.physicsframework.model.force;
 
-
+/**
+ * Factory to create the different forces
+ * 
+ * @author adarrivi
+ * 
+ */
 public class ForceFactory {
 
     public LinearForce createLinearForce(float magnitude, float direction) {

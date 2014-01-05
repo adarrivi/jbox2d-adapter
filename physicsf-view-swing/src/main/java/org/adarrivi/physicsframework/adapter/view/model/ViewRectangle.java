@@ -14,18 +14,15 @@ class ViewRectangle extends ViewPositionalElementDecorator<Rectangle> {
     }
 
     @Override
-    protected void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position) {
-        g2d.setColor(Color.GREEN);
-
+    protected void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position, AffineTransform rotatedAffineTransform) {
         int width = toViewValue(getDecoratedElement().getWidth());
         int height = toViewValue(getDecoratedElement().getHeight());
 
-        AffineTransform transform = new AffineTransform();
-        transform.rotate(position.getRotation(), position.getX(), position.getY());
-        transform.translate(position.getX() - width / 2, position.getY() - height / 2);
+        rotatedAffineTransform.translate(position.getX() - width / 2, position.getY() - height / 2);
 
         Shape rectangleShape = new java.awt.Rectangle(width, height);
-        rectangleShape = transform.createTransformedShape(rectangleShape);
+        rectangleShape = rotatedAffineTransform.createTransformedShape(rectangleShape);
+        g2d.setColor(Color.GREEN);
         g2d.draw(rectangleShape);
     }
 

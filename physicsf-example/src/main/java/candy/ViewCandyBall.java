@@ -19,12 +19,10 @@ public class ViewCandyBall extends ViewPositionalElementDecorator<CandyBall> {
     }
 
     @Override
-    protected void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position) {
+    protected void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position, AffineTransform rotatedAffineTransform) {
         int viewRadius = toViewValue(getDecoratedElement().getRadius());
-        AffineTransform transform = new AffineTransform();
-        transform.rotate(position.getRotation(), position.getX(), position.getY());
-        transform.translate(position.getX() - viewRadius, position.getY() - viewRadius);
-        g2d.drawImage(CANDY_BALL_IMG, transform, null);
+        rotatedAffineTransform.translate(position.getX() - viewRadius, position.getY() - viewRadius);
+        g2d.drawImage(CANDY_BALL_IMG, rotatedAffineTransform, null);
     }
 
 }

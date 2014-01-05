@@ -15,25 +15,24 @@ class ViewCircle extends ViewPositionalElementDecorator<Circle> {
     }
 
     @Override
-    protected void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position) {
-        g2d.setColor(Color.BLUE);
+    protected void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position, AffineTransform rotatedAffineTransform) {
 
         int viewRadius = toViewValue(getDecoratedElement().getRadius());
         int viewDiamenter = 2 * viewRadius;
-        AffineTransform transform = new AffineTransform();
-        transform.rotate(position.getRotation(), position.getX(), position.getY());
-        transform.translate(position.getX() - viewRadius, position.getY() - viewRadius);
+        rotatedAffineTransform.translate(position.getX() - viewRadius, position.getY() - viewRadius);
 
         Shape circle = new Ellipse2D.Double(0, 0, viewDiamenter, viewDiamenter);
-        circle = transform.createTransformedShape(circle);
+        circle = rotatedAffineTransform.createTransformedShape(circle);
+        g2d.setColor(Color.BLUE);
+        g2d.draw(circle);
 
+        // Draw a rectangle inside to see the circle's rotation
         Shape rectangleShape = new java.awt.Rectangle(viewRadius, viewRadius);
         AffineTransform transformR = new AffineTransform();
         transformR.rotate(position.getRotation(), position.getX(), position.getY());
         transformR.translate(position.getX() - viewRadius / 2, position.getY() - viewRadius / 2);
 
         rectangleShape = transformR.createTransformedShape(rectangleShape);
-        g2d.draw(circle);
         g2d.setColor(Color.GRAY);
         g2d.draw(rectangleShape);
     }

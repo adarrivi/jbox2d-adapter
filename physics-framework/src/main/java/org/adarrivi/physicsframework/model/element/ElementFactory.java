@@ -1,6 +1,11 @@
 package org.adarrivi.physicsframework.model.element;
 
-
+/**
+ * Factory for the different elements creation
+ * 
+ * @author adarrivi
+ * 
+ */
 public class ElementFactory {
 
     public SandBox createEarthSandBox() {

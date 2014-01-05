@@ -1,5 +1,11 @@
 package org.adarrivi.physicsframework.model.element;
 
+/**
+ * Rectangle entity with width and height
+ * 
+ * @author adarrivi
+ * 
+ */
 public class Rectangle extends Element {
 
     private float width;

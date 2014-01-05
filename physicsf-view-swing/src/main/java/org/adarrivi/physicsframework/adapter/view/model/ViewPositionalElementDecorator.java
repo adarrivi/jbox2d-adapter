@@ -1,6 +1,7 @@
 package org.adarrivi.physicsframework.adapter.view.model;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.PositionalElement;
@@ -39,10 +40,12 @@ public abstract class ViewPositionalElementDecorator<P extends PositionalElement
 
     @Override
     public final void drawYourself(Graphics2D g2d) {
-        Position latestPosition = getDecoratedElement().getPosition();
-        drawYourselfAtPosition(g2d, toViewPosition(latestPosition));
+        ViewPosition position = toViewPosition(getDecoratedElement().getPosition());
+        AffineTransform rotatedAffineTransform = new AffineTransform();
+        rotatedAffineTransform.rotate(position.getRotation(), position.getX(), position.getY());
+        drawYourselfAtPosition(g2d, position, rotatedAffineTransform);
     }
 
-    protected abstract void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position);
+    protected abstract void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position, AffineTransform rotatedAffineTransform);
 
 }

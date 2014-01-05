@@ -1,5 +1,11 @@
 package org.adarrivi.physicsframework.model.element;
 
+/**
+ * Defines a position within the physics engine
+ * 
+ * @author adarrivi
+ * 
+ */
 public class Position {
 
     private float x;

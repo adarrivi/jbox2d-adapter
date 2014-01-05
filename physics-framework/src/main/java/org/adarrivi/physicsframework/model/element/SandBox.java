@@ -1,6 +1,11 @@
 package org.adarrivi.physicsframework.model.element;
 
-
+/**
+ * World where all the entities will exits
+ * 
+ * @author adarrivi
+ * 
+ */
 public class SandBox {
 
     private static final long DEFAULT_STEP_SIMULATION_MS = 16;

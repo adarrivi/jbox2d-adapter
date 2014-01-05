@@ -20,14 +20,12 @@ public class ViewCandySquare extends ViewPositionalElementDecorator<CandySquare>
     }
 
     @Override
-    protected void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position) {
+    protected void drawYourselfAtPosition(Graphics2D g2d, ViewPosition position, AffineTransform rotatedAffineTransform) {
         int width = toViewValue(getDecoratedElement().getWidth());
         int height = toViewValue(getDecoratedElement().getHeight());
 
-        AffineTransform transform = new AffineTransform();
-        transform.rotate(position.getRotation(), position.getX(), position.getY());
-        transform.translate(position.getX() - width / 2, position.getY() - height / 2);
-        g2d.drawImage(CANDY_SQUARE_IMG, transform, null);
+        rotatedAffineTransform.translate(position.getX() - width / 2, position.getY() - height / 2);
+        g2d.drawImage(CANDY_SQUARE_IMG, rotatedAffineTransform, null);
     }
 
 }

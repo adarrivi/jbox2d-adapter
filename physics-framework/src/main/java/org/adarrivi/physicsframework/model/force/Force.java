@@ -1,6 +1,11 @@
 package org.adarrivi.physicsframework.model.force;
 
-
+/**
+ * Defines a force with a magnitude
+ * 
+ * @author adarrivi
+ * 
+ */
 public abstract class Force {
 
     private float magnitude;

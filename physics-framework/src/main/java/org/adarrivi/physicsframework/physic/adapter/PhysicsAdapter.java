@@ -7,6 +7,12 @@ import org.adarrivi.physicsframework.model.element.PositionalElement;
 import org.adarrivi.physicsframework.model.element.SandBox;
 import org.adarrivi.physicsframework.model.force.Force;
 
+/**
+ * Defines the API that any physics engine must implement to be used
+ * 
+ * @author adarrivi
+ * 
+ */
 public interface PhysicsAdapter {
 
     void createElement(PositionalElement element);

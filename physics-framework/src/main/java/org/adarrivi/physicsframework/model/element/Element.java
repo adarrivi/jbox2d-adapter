@@ -1,5 +1,12 @@
 package org.adarrivi.physicsframework.model.element;
 
+/**
+ * Represents a physical element with position/rotation and behaviour
+ * (dynamic/static)
+ * 
+ * @author adarrivi
+ * 
+ */
 public abstract class Element implements PositionalElement {
 
     private DynamicType dynamicType;

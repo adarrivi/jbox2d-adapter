@@ -1,6 +1,11 @@
 package org.adarrivi.physicsframework.model.force;
 
-
+/**
+ * Linear force to be applied to entities
+ * 
+ * @author adarrivi
+ * 
+ */
 public class LinearForce extends Force {
 
     private float directionAngle;
