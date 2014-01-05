@@ -2,6 +2,7 @@ package org.adarrivi.physicsframework;
 
 import org.adarrivi.physicsframework.adapter.physics.Jbox2dPhysicsAdapter;
 import org.adarrivi.physicsframework.adapter.physics.model.element.Jbox2dPhysicsDecoratorFactory;
+import org.adarrivi.physicsframework.adapter.physics.model.force.Jbox2dPhysicsForceDecoratorFactory;
 import org.adarrivi.physicsframework.executor.SteadyExecutor;
 import org.adarrivi.physicsframework.model.CandyBar;
 import org.adarrivi.physicsframework.model.CandyFactory;
@@ -33,7 +34,8 @@ public class DoubleViewJboxSimulation {
     void start() {
         candyFactory = new CandyFactory();
         Jbox2dPhysicsDecoratorFactory physicsDecoratorFactory = new Jbox2dPhysicsDecoratorFactory();
-        physicsAdapter = new Jbox2dPhysicsAdapter(physicsDecoratorFactory);
+        Jbox2dPhysicsForceDecoratorFactory forceDecoratorFactory = new Jbox2dPhysicsForceDecoratorFactory();
+        physicsAdapter = new Jbox2dPhysicsAdapter(physicsDecoratorFactory, forceDecoratorFactory);
         DoublePanelFrame viewFrame = new DoublePanelFrame(physicsAdapter);
         viewFrame.setFrameSize(WIDTH, HEIGHT, PIXELS_PER_METER);
 
