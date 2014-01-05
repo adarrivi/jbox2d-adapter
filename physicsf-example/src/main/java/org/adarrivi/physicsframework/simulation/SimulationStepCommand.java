@@ -1,4 +1,4 @@
-package org.adarrivi.physicsframework;
+package org.adarrivi.physicsframework.simulation;
 
 import javax.swing.JFrame;
 
@@ -18,7 +18,7 @@ import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
  * @author adarrivi
  * 
  */
-class DoubleViewStepCommand implements Runnable {
+public class SimulationStepCommand implements Runnable {
 
     private static final int ANGULAR_FORCE = 100;
     private static final float CANDY_FORCE_MAGNITUDE = 600f;
@@ -34,7 +34,7 @@ class DoubleViewStepCommand implements Runnable {
     private SandBox sandBox;
     private JFrame viewFrame;
 
-    DoubleViewStepCommand(PhysicsAdapter physicsAdapter, CandyFactory candyFactory, SandBox sandBox, JFrame viewFrame) {
+    public SimulationStepCommand(PhysicsAdapter physicsAdapter, CandyFactory candyFactory, SandBox sandBox, JFrame viewFrame) {
         this.elementFactory = candyFactory;
         this.sandBox = sandBox;
         this.viewFrame = viewFrame;

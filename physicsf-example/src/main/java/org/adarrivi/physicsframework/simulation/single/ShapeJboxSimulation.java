@@ -1,4 +1,4 @@
-package org.adarrivi.physicsframework;
+package org.adarrivi.physicsframework.simulation.single;
 
 import org.adarrivi.physicsframework.adapter.physics.Jbox2dPhysicsAdapter;
 import org.adarrivi.physicsframework.adapter.physics.model.element.Jbox2dElementDecoratorFactory;
@@ -9,6 +9,7 @@ import org.adarrivi.physicsframework.model.CandyFactory;
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.SandBox;
 import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
+import org.adarrivi.physicsframework.simulation.SimulationStepCommand;
 
 /**
  * Simulation using Jbox2d engine and two different swing visualisations: by
@@ -17,7 +18,7 @@ import org.adarrivi.physicsframework.physic.adapter.PhysicsAdapter;
  * @author adarrivi
  * 
  */
-public class DoubleViewJboxSimulation {
+public class ShapeJboxSimulation {
 
     private static final int STEPS_PER_SECOND = 60;
     private static final int PIXELS_PER_METER = 25;
@@ -28,7 +29,7 @@ public class DoubleViewJboxSimulation {
     private CandyFactory candyFactory;
 
     public static void main(String[] args) {
-        new DoubleViewJboxSimulation().start();
+        new ShapeJboxSimulation().start();
     }
 
     void start() {
@@ -36,13 +37,13 @@ public class DoubleViewJboxSimulation {
         Jbox2dElementDecoratorFactory physicsDecoratorFactory = new Jbox2dElementDecoratorFactory();
         Jbox2dForceDecoratorFactory forceDecoratorFactory = new Jbox2dForceDecoratorFactory();
         physicsAdapter = new Jbox2dPhysicsAdapter(physicsDecoratorFactory, forceDecoratorFactory);
-        DoublePanelFrame viewFrame = new DoublePanelFrame(physicsAdapter);
+        ShapeSinglgePanelFrame viewFrame = new ShapeSinglgePanelFrame(physicsAdapter);
         viewFrame.setFrameSize(WIDTH, HEIGHT, PIXELS_PER_METER);
 
         SandBox sandBox = createSandBox();
         createCandyBars();
 
-        DoubleViewStepCommand stepCommand = new DoubleViewStepCommand(physicsAdapter, candyFactory, sandBox, viewFrame);
+        SimulationStepCommand stepCommand = new SimulationStepCommand(physicsAdapter, candyFactory, sandBox, viewFrame);
         SteadyExecutor steadyExecutor = new SteadyExecutor(stepCommand);
 
         steadyExecutor.executeNoFasterThan(STEPS_PER_SECOND);
