@@ -1,4 +1,4 @@
-package org.adarrivi.physicsframework.adapter.physics.model;
+package org.adarrivi.physicsframework.adapter.physics.model.element;
 
 import org.adarrivi.physicsframework.model.element.Circle;
 import org.adarrivi.physicsframework.model.element.PositionalElement;

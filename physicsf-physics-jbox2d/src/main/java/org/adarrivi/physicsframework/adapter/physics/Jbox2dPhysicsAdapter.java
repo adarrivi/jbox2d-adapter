@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-import org.adarrivi.physicsframework.adapter.physics.model.Jbox2dPhysicsDecoratorFactory;
-import org.adarrivi.physicsframework.adapter.physics.model.PhysicsElementDecorator;
+import org.adarrivi.physicsframework.adapter.physics.model.element.Jbox2dPhysicsDecoratorFactory;
+import org.adarrivi.physicsframework.adapter.physics.model.element.PhysicsElementDecorator;
 import org.adarrivi.physicsframework.model.element.Position;
 import org.adarrivi.physicsframework.model.element.PositionalElement;
 import org.adarrivi.physicsframework.model.element.SandBox;

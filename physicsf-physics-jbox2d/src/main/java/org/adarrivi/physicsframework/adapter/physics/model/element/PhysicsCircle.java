@@ -1,8 +1,7 @@
-package org.adarrivi.physicsframework.adapter.physics.model;
+package org.adarrivi.physicsframework.adapter.physics.model.element;
 
 import org.adarrivi.physicsframework.model.element.Circle;
 import org.jbox2d.collision.shapes.CircleShape;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.FixtureDef;
 
 public class PhysicsCircle extends PhysicsElementDecorator<Circle> {
@@ -15,15 +14,14 @@ public class PhysicsCircle extends PhysicsElementDecorator<Circle> {
     }
 
     @Override
-    protected Body addFixtureDefinition(Body body) {
+    protected FixtureDef createFixtureDef() {
         CircleShape circle = new CircleShape();
         circle.m_radius = getDecoratedElement().getRadius();
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;
         fixtureDef.density = DENSITY;
         fixtureDef.friction = FRICTION;
-        body.createFixture(fixtureDef);
-        return body;
+        return fixtureDef;
     }
 
 }

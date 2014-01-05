@@ -1,7 +1,7 @@
 package org.adarrivi.physicsframework;
 
 import org.adarrivi.physicsframework.adapter.physics.Jbox2dPhysicsAdapter;
-import org.adarrivi.physicsframework.adapter.physics.model.Jbox2dPhysicsDecoratorFactory;
+import org.adarrivi.physicsframework.adapter.physics.model.element.Jbox2dPhysicsDecoratorFactory;
 import org.adarrivi.physicsframework.executor.SteadyExecutor;
 import org.adarrivi.physicsframework.model.CandyBar;
 import org.adarrivi.physicsframework.model.CandyFactory;
